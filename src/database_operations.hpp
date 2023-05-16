@@ -51,8 +51,9 @@ void init_database(sqlite::database& db);
 
 template<class T>
 std::vector<T> get(sqlite::database& db) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
-                    std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
+  constexpr bool valid_type =
+      std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
+      std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
   static_assert(valid_type, "Invalid DataType to get()\n");
 }
 

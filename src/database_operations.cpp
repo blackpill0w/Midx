@@ -13,8 +13,7 @@ namespace MusicIndexer::DatabaseOperations {
 namespace Utils {
 bool is_supported_file_type(const std::string& path) {
   constexpr std::array<std::string_view, 2> exts{".flac", ".mp3"};
-  return std::any_of(exts.begin(), exts.end(),
-                     [&](const auto& ext) { return path.ends_with(ext); });
+  return std::ranges::any_of(exts, [&](const auto& ext) { return path.ends_with(ext); });
 }
 }  // namespace Utils
 
@@ -131,7 +130,7 @@ bool add_music_directory(const std::string& path) {
     }
     else if ((fs::is_regular_file(path) or fs::is_symlink(path)) and
              Utils::is_supported_file_type(path)) {
-        //add_track();
+      // add_track();
     }
   }
 
