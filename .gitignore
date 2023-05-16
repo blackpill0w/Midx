@@ -1,0 +1,9 @@
+compile_commands.json
+music_library.sqlite
+*.bak
+.vscode
+build*
+*.cache
+.$*
+*a.out
+*vgcore.*
