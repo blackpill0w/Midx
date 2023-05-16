@@ -1,7 +1,5 @@
 #include <sqlite_modern_cpp.h>
 
-#include <string>
-
 #include "./cli.hpp"
 #include "./database_operations.hpp"
 
