@@ -1,0 +1,46 @@
+\hypertarget{database__operations_8cpp}{}\doxysection{/home/blackpill0w/\+Code/c\+\_\+c++/\+Music-\/\+Indexer/src/database\+\_\+operations.cpp File Reference}
+\label{database__operations_8cpp}\index{/home/blackpill0w/Code/c\_c++/Music-\/Indexer/src/database\_operations.cpp@{/home/blackpill0w/Code/c\_c++/Music-\/Indexer/src/database\_operations.cpp}}
+{\ttfamily \#include \char`\"{}./database\+\_\+operations.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer}{Music\+Indexer}}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations}{Music\+Indexer\+::\+Database\+Operations}}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_1_1Utils}{Music\+Indexer\+::\+Database\+Operations\+::\+Utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_1_1Utils_a111c3889c4475377bcec2deef95dedbe}{Music\+Indexer\+::\+Database\+Operations\+::\+Utils\+::is\+\_\+supported\+\_\+file\+\_\+type}} (const std\+::string \&path)
+\item 
+void \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a2e819069bd69a0d94795b087efa468a4}{Music\+Indexer\+::\+Database\+Operations\+::init\+\_\+database}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ Music\+Dir $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_abd639a069aa8cceab67f87419853cc39}{Music\+Indexer\+::\+Database\+Operations\+::get$<$ Music\+Dir $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ Artist $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5bc13eb7fbfaec3811c27147bfe02248}{Music\+Indexer\+::\+Database\+Operations\+::get$<$ Artist $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ Album $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_ab19a9d040509d7ec09fc091872868e9f}{Music\+Indexer\+::\+Database\+Operations\+::get$<$ Album $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ Track $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a648b03a153a8cdc5fa3b135e35c99d33}{Music\+Indexer\+::\+Database\+Operations\+::get$<$ Track $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6a336585ea2844f8abb96d502afbd475}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid$<$ Music\+Dir $>$}} (sqlite\+::database \&db, const std\+::string \&path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_afbcfadcd569206ac1ed7078b2fc95ddb}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid$<$ Artist $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a9522a638e9116360a63ef6db0bb30fdf}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid$<$ Album $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ artist\+\_\+id)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a264b8594ae4e18baa3e11f3bc7bf99f4}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid$<$ Track $>$}} (sqlite\+::database \&db, const std\+::string \&file\+\_\+path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_ab8f79a302e09f7145a05af68643b0538}{Music\+Indexer\+::\+Database\+Operations\+::insert$<$ Music\+Dir $>$}} (sqlite\+::database \&db, const std\+::string \&path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a29871a41ea8f0e1bd7fec900f6103b86}{Music\+Indexer\+::\+Database\+Operations\+::insert$<$ Artist $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a0e7f1badb1a254342943f3246480e459}{Music\+Indexer\+::\+Database\+Operations\+::insert$<$ Album $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ artist\+\_\+rowid)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_adcba67f0bd9764e05387f203b744e042}{Music\+Indexer\+::\+Database\+Operations\+::insert$<$ Track $>$}} (sqlite\+::database \&db, const std\+::string \&file\+\_\+path, const std\+::optional$<$ int $>$ parent\+\_\+dir\+\_\+rowid)
+\end{DoxyCompactItemize}

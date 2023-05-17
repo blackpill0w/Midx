@@ -1,0 +1,237 @@
+\hypertarget{namespaceMusicIndexer_1_1DatabaseOperations}{}\doxysection{Music\+Indexer\+::Database\+Operations Namespace Reference}
+\label{namespaceMusicIndexer_1_1DatabaseOperations}\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_1_1Utils}{Utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMusicIndexer_1_1DatabaseOperations_1_1MusicData}{Music\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a2e819069bd69a0d94795b087efa468a4}{init\+\_\+database}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1MusicDir}{Music\+Dir}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_abd639a069aa8cceab67f87419853cc39}{get$<$ Music\+Dir $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Artist}{Artist}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5bc13eb7fbfaec3811c27147bfe02248}{get$<$ Artist $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Album}{Album}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_ab19a9d040509d7ec09fc091872868e9f}{get$<$ Album $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Track}{Track}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a648b03a153a8cdc5fa3b135e35c99d33}{get$<$ Track $>$}} (sqlite\+::database \&db)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6a336585ea2844f8abb96d502afbd475}{get\+\_\+rowid$<$ Music\+Dir $>$}} (sqlite\+::database \&db, const std\+::string \&path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_afbcfadcd569206ac1ed7078b2fc95ddb}{get\+\_\+rowid$<$ Artist $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a9522a638e9116360a63ef6db0bb30fdf}{get\+\_\+rowid$<$ Album $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ artist\+\_\+id)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a264b8594ae4e18baa3e11f3bc7bf99f4}{get\+\_\+rowid$<$ Track $>$}} (sqlite\+::database \&db, const std\+::string \&file\+\_\+path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_ab8f79a302e09f7145a05af68643b0538}{insert$<$ Music\+Dir $>$}} (sqlite\+::database \&db, const std\+::string \&path, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a29871a41ea8f0e1bd7fec900f6103b86}{insert$<$ Artist $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ dummy)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a0e7f1badb1a254342943f3246480e459}{insert$<$ Album $>$}} (sqlite\+::database \&db, const std\+::string \&name, const std\+::optional$<$ int $>$ artist\+\_\+rowid)
+\item 
+template$<$$>$ std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_adcba67f0bd9764e05387f203b744e042}{insert$<$ Track $>$}} (sqlite\+::database \&db, const std\+::string \&file\+\_\+path, const std\+::optional$<$ int $>$ parent\+\_\+dir\+\_\+rowid)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ T $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{get}} (sqlite\+::database \&db)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{get\+\_\+rowid}} (sqlite\+::database \&db, const std\+::string \&str, const std\+::optional$<$ int $>$ dummy=std\+::nullopt)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{insert}} (sqlite\+::database \&db, const std\+::string \&str, const std\+::optional$<$ int $>$ dummy=std\+::nullopt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}\label{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get@{get}}
+\index{get@{get}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$ T $>$ Music\+Indexer\+::\+Database\+Operations\+::get (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Get all music directories, artists, albums or tracks in the database. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_ab19a9d040509d7ec09fc091872868e9f}\label{namespaceMusicIndexer_1_1DatabaseOperations_ab19a9d040509d7ec09fc091872868e9f}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get$<$ Album $>$@{get$<$ Album $>$}}
+\index{get$<$ Album $>$@{get$<$ Album $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get$<$ Album $>$()}{get< Album >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Album}{Album}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{Music\+Indexer\+::\+Database\+Operations\+::get}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Album}{Album}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Get all the albums. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a5bc13eb7fbfaec3811c27147bfe02248}\label{namespaceMusicIndexer_1_1DatabaseOperations_a5bc13eb7fbfaec3811c27147bfe02248}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get$<$ Artist $>$@{get$<$ Artist $>$}}
+\index{get$<$ Artist $>$@{get$<$ Artist $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get$<$ Artist $>$()}{get< Artist >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Artist}{Artist}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{Music\+Indexer\+::\+Database\+Operations\+::get}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Artist}{Artist}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Get all the artists. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_abd639a069aa8cceab67f87419853cc39}\label{namespaceMusicIndexer_1_1DatabaseOperations_abd639a069aa8cceab67f87419853cc39}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get$<$ MusicDir $>$@{get$<$ MusicDir $>$}}
+\index{get$<$ MusicDir $>$@{get$<$ MusicDir $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get$<$ MusicDir $>$()}{get< MusicDir >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1MusicDir}{Music\+Dir}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{Music\+Indexer\+::\+Database\+Operations\+::get}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1MusicDir}{Music\+Dir}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Get all the music directories. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a648b03a153a8cdc5fa3b135e35c99d33}\label{namespaceMusicIndexer_1_1DatabaseOperations_a648b03a153a8cdc5fa3b135e35c99d33}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get$<$ Track $>$@{get$<$ Track $>$}}
+\index{get$<$ Track $>$@{get$<$ Track $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get$<$ Track $>$()}{get< Track >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{classMusicIndexer_1_1Track}{Track}} $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{Music\+Indexer\+::\+Database\+Operations\+::get}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Track}{Track}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Get all the tracks. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}\label{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get\_rowid@{get\_rowid}}
+\index{get\_rowid@{get\_rowid}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get\_rowid()}{get\_rowid()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::optional$<$ int $>$ Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{str,  }\item[{const std\+::optional$<$ int $>$}]{dummy = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption})}
+
+Get rowid of a music directory, artist, album or track in the database, std\+::nullopt is return if it doesn\textquotesingle{}t exist.
+
+\begin{DoxyNote}{Note}
+The interpretation of the paramaters depends on the function\textquotesingle{}s instance, refer to the relevant function 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a9522a638e9116360a63ef6db0bb30fdf}\label{namespaceMusicIndexer_1_1DatabaseOperations_a9522a638e9116360a63ef6db0bb30fdf}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get\_rowid$<$ Album $>$@{get\_rowid$<$ Album $>$}}
+\index{get\_rowid$<$ Album $>$@{get\_rowid$<$ Album $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get\_rowid$<$ Album $>$()}{get\_rowid< Album >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Album}{Album}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{name,  }\item[{const std\+::optional$<$ int $>$}]{artist\+\_\+id }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the album \\
+\hline
+{\em artist\+\_\+id} & the rowid of the albums\textquotesingle{}s artist if it exists \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_afbcfadcd569206ac1ed7078b2fc95ddb}\label{namespaceMusicIndexer_1_1DatabaseOperations_afbcfadcd569206ac1ed7078b2fc95ddb}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get\_rowid$<$ Artist $>$@{get\_rowid$<$ Artist $>$}}
+\index{get\_rowid$<$ Artist $>$@{get\_rowid$<$ Artist $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get\_rowid$<$ Artist $>$()}{get\_rowid< Artist >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Artist}{Artist}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{name,  }\item[{const std\+::optional$<$ int $>$}]{dummy }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & name of the artist \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a6a336585ea2844f8abb96d502afbd475}\label{namespaceMusicIndexer_1_1DatabaseOperations_a6a336585ea2844f8abb96d502afbd475}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get\_rowid$<$ MusicDir $>$@{get\_rowid$<$ MusicDir $>$}}
+\index{get\_rowid$<$ MusicDir $>$@{get\_rowid$<$ MusicDir $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get\_rowid$<$ MusicDir $>$()}{get\_rowid< MusicDir >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1MusicDir}{Music\+Dir}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{path,  }\item[{const std\+::optional$<$ int $>$}]{dummy }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & absolute or relative path to the directory \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a264b8594ae4e18baa3e11f3bc7bf99f4}\label{namespaceMusicIndexer_1_1DatabaseOperations_a264b8594ae4e18baa3e11f3bc7bf99f4}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!get\_rowid$<$ Track $>$@{get\_rowid$<$ Track $>$}}
+\index{get\_rowid$<$ Track $>$@{get\_rowid$<$ Track $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{get\_rowid$<$ Track $>$()}{get\_rowid< Track >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Track}{Track}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{const std\+::optional$<$ int $>$}]{dummy }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & path to the track\textquotesingle{}s file \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a2e819069bd69a0d94795b087efa468a4}\label{namespaceMusicIndexer_1_1DatabaseOperations_a2e819069bd69a0d94795b087efa468a4}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!init\_database@{init\_database}}
+\index{init\_database@{init\_database}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{init\_database()}{init\_database()}}
+{\footnotesize\ttfamily void Music\+Indexer\+::\+Database\+Operations\+::init\+\_\+database (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db }\end{DoxyParamCaption})}
+
+Initialise database and tables, this function also enables foreign keys check so it is preferred to call it before any operations are done. \mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}\label{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!insert@{insert}}
+\index{insert@{insert}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::optional$<$ int $>$ Music\+Indexer\+::\+Database\+Operations\+::insert (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{str,  }\item[{const std\+::optional$<$ int $>$}]{dummy = {\ttfamily std\+:\+:nullopt} }\end{DoxyParamCaption})}
+
+Insert a music directory, an artist, an album or a track in the database.
+
+\begin{DoxyNote}{Note}
+The interpretation of the paramaters depends on the function\textquotesingle{}s instance, refer to the relevant function 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a0e7f1badb1a254342943f3246480e459}\label{namespaceMusicIndexer_1_1DatabaseOperations_a0e7f1badb1a254342943f3246480e459}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!insert$<$ Album $>$@{insert$<$ Album $>$}}
+\index{insert$<$ Album $>$@{insert$<$ Album $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{insert$<$ Album $>$()}{insert< Album >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{Music\+Indexer\+::\+Database\+Operations\+::insert}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Album}{Album}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{name,  }\item[{const std\+::optional$<$ int $>$}]{artist\+\_\+rowid }\end{DoxyParamCaption})}
+
+Adds an album to the database. If it already exists in the database, nothing happens.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & name of the album. \\
+\hline
+{\em artist\+\_\+rowid} & rowid of the album\textquotesingle{}s artist, if std\+::nullopt is passed the artist will be marked as unknown.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rowid of the album if everthing goes correctly, otherwise std\+::nullopt. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_a29871a41ea8f0e1bd7fec900f6103b86}\label{namespaceMusicIndexer_1_1DatabaseOperations_a29871a41ea8f0e1bd7fec900f6103b86}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!insert$<$ Artist $>$@{insert$<$ Artist $>$}}
+\index{insert$<$ Artist $>$@{insert$<$ Artist $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{insert$<$ Artist $>$()}{insert< Artist >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{Music\+Indexer\+::\+Database\+Operations\+::insert}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Artist}{Artist}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{name,  }\item[{const std\+::optional$<$ int $>$}]{dummy }\end{DoxyParamCaption})}
+
+Adds an artist to the database. If it already exists in the database, nothing happens.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & name of the artist.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rowid of the artist if everthing goes correctly, otherwise std\+::nullopt. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_ab8f79a302e09f7145a05af68643b0538}\label{namespaceMusicIndexer_1_1DatabaseOperations_ab8f79a302e09f7145a05af68643b0538}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!insert$<$ MusicDir $>$@{insert$<$ MusicDir $>$}}
+\index{insert$<$ MusicDir $>$@{insert$<$ MusicDir $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{insert$<$ MusicDir $>$()}{insert< MusicDir >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{Music\+Indexer\+::\+Database\+Operations\+::insert}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1MusicDir}{Music\+Dir}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{path,  }\item[{const std\+::optional$<$ int $>$}]{dummy }\end{DoxyParamCaption})}
+
+Adds a directory to the database. If it already exists in the database, nothing happens.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & absolute or relative path to the directory.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rowid of the inserted item if the directory exists and the given path points to a direcory, otherwise std\+::nullopt. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceMusicIndexer_1_1DatabaseOperations_adcba67f0bd9764e05387f203b744e042}\label{namespaceMusicIndexer_1_1DatabaseOperations_adcba67f0bd9764e05387f203b744e042}} 
+\index{MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}!insert$<$ Track $>$@{insert$<$ Track $>$}}
+\index{insert$<$ Track $>$@{insert$<$ Track $>$}!MusicIndexer::DatabaseOperations@{MusicIndexer::DatabaseOperations}}
+\doxysubsubsection{\texorpdfstring{insert$<$ Track $>$()}{insert< Track >()}}
+{\footnotesize\ttfamily template$<$$>$ \\
+std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{Music\+Indexer\+::\+Database\+Operations\+::insert}}$<$ \mbox{\hyperlink{classMusicIndexer_1_1Track}{Track}} $>$ (\begin{DoxyParamCaption}\item[{sqlite\+::database \&}]{db,  }\item[{const std\+::string \&}]{file\+\_\+path,  }\item[{const std\+::optional$<$ int $>$}]{parent\+\_\+dir\+\_\+rowid }\end{DoxyParamCaption})}
+
+Adds an track to the database. If it already exists in the database, the metadata is updated if needed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+\_\+path} & absolute or relative path to the track\textquotesingle{}s file. \\
+\hline
+{\em parent\+\_\+dir\+\_\+rowid} & rowid of the parent directory, necessary.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rowid of the track if everthing goes correctly, otherwise std\+::nullopt. 
+\end{DoxyReturn}

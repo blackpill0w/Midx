@@ -43,35 +43,54 @@ class MusicData {
 void init_database(sqlite::database& db);
 
 /**
-   Get all items in the database.
-   Implemented for MusicDir, Artist, Album and Track.
-
-   @param db initialised database with tables already created
+   Get all music directories, artists, albums or tracks in the database.
 */
 
-template<class T>
+template<typename T>
 std::vector<T> get(sqlite::database& db) {
   constexpr bool valid_type =
       std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
       std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
   static_assert(valid_type, "Invalid DataType to get()\n");
+  // Compiler warnings
+  return {};
 }
 
-template<>
-std::vector<MusicDir> get<MusicDir>(sqlite::database& db);
+/**
+  Get rowid of a music directory, artist, album or track in the database, std::nullopt is
+  return if it doesn't exist.
 
-template<>
-std::vector<Artist> get<Artist>(sqlite::database& db);
-
-template<>
-std::vector<Album> get<Album>(sqlite::database& db);
-
-template<>
-std::vector<Track> get<Track>(sqlite::database& db);
+  @note The interpretation of the paramaters depends on the function's instance, refer to
+  the relevant function
+*/
+template<typename T>
+std::optional<int> get_rowid(
+    sqlite::database& db, const std::string& str,
+    [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
+  constexpr bool valid_type =
+      std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
+      std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
+  static_assert(valid_type, "Invalid DataType to get()\n");
+  // Compiler warnings
+  return std::nullopt;
+}
 
 /**
-  Adds a directory to the database, and scans it for tracks.
+  Insert a music directory, an artist, an album or a track in the database.
+
+  @note The interpretation of the paramaters depends on the function's instance, refer to
+  the relevant function
 */
-bool add_music_directory(const std::string& path);
+template<typename T>
+std::optional<int> insert(
+    sqlite::database& db, const std::string& str,
+    [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
+  constexpr bool valid_type =
+      std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
+      std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
+  static_assert(valid_type, "Invalid DataType to get()\n");
+  // Compiler warnings
+  return std::nullopt;
+}
 
 }  // namespace MusicIndexer::DatabaseOperations

@@ -11,6 +11,10 @@ namespace MusicIndexer::DatabaseOperations {
 // Static helper functions
 
 namespace Utils {
+/**
+  Checks whether a file is of a supported format.
+  Currently only `.flac` and `.mp3` are supported.
+*/
 bool is_supported_file_type(const std::string& path) {
   constexpr std::array<std::string_view, 2> exts{".flac", ".mp3"};
   return std::ranges::any_of(exts, [&](const auto& ext) { return path.ends_with(ext); });
@@ -70,6 +74,9 @@ void init_database(sqlite::database& db) {
   }
 }
 
+/**
+  Get all the music directories.
+*/
 template<>
 std::vector<MusicDir> get<MusicDir>(sqlite::database& db) {
   std::vector<MusicDir> res{};
@@ -82,6 +89,9 @@ std::vector<MusicDir> get<MusicDir>(sqlite::database& db) {
   return res;
 }
 
+/**
+  Get all the artists.
+*/
 template<>
 std::vector<Artist> get<Artist>(sqlite::database& db) {
   std::vector<Artist> res{};
@@ -94,6 +104,9 @@ std::vector<Artist> get<Artist>(sqlite::database& db) {
   return res;
 }
 
+/**
+  Get all the albums.
+*/
 template<>
 std::vector<Album> get<Album>(sqlite::database& db) {
   std::vector<Album> res{};
@@ -107,6 +120,9 @@ std::vector<Album> get<Album>(sqlite::database& db) {
   return res;
 }
 
+/**
+  Get all the tracks.
+*/
 template<>
 std::vector<Track> get<Track>(sqlite::database& db) {
   std::vector<Track> res{};
@@ -120,21 +136,162 @@ std::vector<Track> get<Track>(sqlite::database& db) {
   return res;
 }
 
-bool add_music_directory(const std::string& path) {
-  if (not (fs::exists(path) and fs::is_directory(path))) {
-    return false;
+/**
+  @param path absolute or relative path to the directory
+*/
+template<>
+std::optional<int> get_rowid<MusicDir>(sqlite::database& db, const std::string& path,
+                                       [[maybe_unused]] const std::optional<int> dummy) {
+  std::optional<int> res{};
+  const std::string abs_path = fs::canonical(path);
+  try {
+    // clang-format off
+    db << "SELECT rowid FROM t_music_dirs WHERE path = ?"
+       << abs_path
+       >> res;
+    // clang-format on
+  } catch (sqlite::errors::no_rows& e) {
   }
-  for (const auto& dir_entry : fs::recursive_directory_iterator(path)) {
-    if (dir_entry.is_directory()) {
-      add_music_directory(dir_entry.path());
-    }
-    else if ((fs::is_regular_file(path) or fs::is_symlink(path)) and
-             Utils::is_supported_file_type(path)) {
-      // add_track();
-    }
-  }
+  return res;
+}
 
-  return true;
+/**
+  @param name name of the artist
+*/
+template<>
+std::optional<int> get_rowid<Artist>(sqlite::database& db, const std::string& name,
+                                     [[maybe_unused]] const std::optional<int> dummy) {
+  std::optional<int> res{};
+  try {
+    // clang-format off
+    db << "SELECT rowid FROM t_artists WHERE name = ?"
+       << name
+       >> res;
+    // clang-format on
+  } catch (sqlite::errors::no_rows& e) {
+  }
+  return res;
+}
+
+/**
+  @param name the name of the album
+  @param artist_id the rowid of the albums's artist if it exists
+*/
+template<>
+std::optional<int> get_rowid<Album>(sqlite::database& db, const std::string& name,
+                                    const std::optional<int> artist_id) {
+  std::optional<int> res{};
+  try {
+    // clang-format off
+    db << "SELECT rowid FROM t_albums WHERE name = ? AND artist_id = ?"
+       << name << artist_id
+       >> res;
+    // clang-format on
+  } catch (sqlite::errors::no_rows& e) {
+  }
+  return res;
+}
+
+/**
+  @param file_path path to the track's file
+*/
+template<>
+std::optional<int> get_rowid<Track>(sqlite::database& db, const std::string& file_path,
+                                    [[maybe_unused]] const std::optional<int> dummy) {
+  std::optional<int> res{};
+  try {
+    // clang-format off
+    db << "SELECT rowid FROM t_tracks WHERE file_path = ?"
+       << file_path
+       >> res;
+    // clang-format on
+  } catch (sqlite::errors::no_rows& e) {
+  }
+  return res;
+}
+
+/**
+  Adds a directory to the database. If it already exists in the database,
+  nothing happens.
+
+  @param path absolute or relative path to the directory.
+
+  @return the rowid of the inserted item if the directory exists and the given path points
+  to a direcory, otherwise std::nullopt.
+*/
+template<>
+std::optional<int> insert<MusicDir>(sqlite::database& db, const std::string& path,
+                                    [[maybe_unused]] const std::optional<int> dummy) {
+  if (not fs::exists(path) or not fs::is_directory(path)) {
+    return std::nullopt;
+  }
+  const std::string abs_path = fs::canonical(path);
+  std::cout << abs_path << "\n";
+  db << "INSERT OR IGNORE INTO t_music_dirs VALUES (?)" << abs_path;
+  return get_rowid<MusicDir>(db, abs_path);
+}
+
+/**
+  Adds an artist to the database. If it already exists in the database,
+  nothing happens.
+
+  @param name name of the artist.
+
+  @return the rowid of the artist if everthing goes correctly,
+  otherwise std::nullopt.
+*/
+template<>
+std::optional<int> insert<Artist>(sqlite::database& db, const std::string& name,
+                                  [[maybe_unused]] const std::optional<int> dummy) {
+  db << "INSERT OR IGNORE INTO t_artists VALUES (?)" << name;
+  return get_rowid<Album>(db, name);
+}
+
+/**
+  Adds an album to the database. If it already exists in the database,
+  nothing happens.
+
+  @param name name of the album.
+  @param artist_rowid rowid of the album's artist, if std::nullopt is passed the artist
+  will be marked as unknown.
+
+  @return the rowid of the album if everthing goes correctly,
+  otherwise std::nullopt.
+*/
+template<>
+std::optional<int> insert<Album>(sqlite::database& db, const std::string& name,
+                                 const std::optional<int> artist_rowid) {
+  // TODO: make sure artist_rowid is valid
+  // clang-format off
+  db << "INSERT OR IGNORE INTO t_albums (name, artist_id) VALUES (?, ?)"
+     << name << artist_rowid;
+  // clang-format on
+  return get_rowid<Album>(db, name);
+}
+
+/**
+  Adds an track to the database. If it already exists in the database,
+  the metadata is updated if needed.
+
+  @param file_path absolute or relative path to the track's file.
+  @param parent_dir_rowid rowid of the parent directory, necessary.
+
+  @return the rowid of the track if everthing goes correctly,
+  otherwise std::nullopt.
+*/
+template<>
+std::optional<int> insert<Track>(
+    sqlite::database& db, const std::string& file_path,
+    [[maybe_unused]] const std::optional<int> parent_dir_rowid) {
+  std::optional<int> res{};
+  // TODO: make sure parent_dir_rowid is valid
+  if (not fs::exists(file_path) or not fs::is_regular_file(file_path)) {
+    return res;
+  }
+  db << "INSERT OR IGNORE INTO t_tracks (file_path, parent_dir_id) VALUES (?, ?)"
+     << file_path << parent_dir_rowid;
+  // TODO: Get metadata and insert it (or update if it's already there)
+  return get_rowid<Track>(db, file_path);
 }
 
 }  // namespace MusicIndexer::DatabaseOperations

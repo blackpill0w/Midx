@@ -1,0 +1,30 @@
+\hypertarget{database__operations_8hpp}{}\doxysection{/home/blackpill0w/\+Code/c\+\_\+c++/\+Music-\/\+Indexer/src/database\+\_\+operations.hpp File Reference}
+\label{database__operations_8hpp}\index{/home/blackpill0w/Code/c\_c++/Music-\/Indexer/src/database\_operations.hpp@{/home/blackpill0w/Code/c\_c++/Music-\/Indexer/src/database\_operations.hpp}}
+{\ttfamily \#include $<$sqlite\+\_\+modern\+\_\+cpp.\+h$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}./utils.\+hpp\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMusicIndexer_1_1DatabaseOperations_1_1MusicData}{Music\+Indexer\+::\+Database\+Operations\+::\+Music\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer}{Music\+Indexer}}
+\item 
+namespace \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations}{Music\+Indexer\+::\+Database\+Operations}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a2e819069bd69a0d94795b087efa468a4}{Music\+Indexer\+::\+Database\+Operations\+::init\+\_\+database}} (sqlite\+::database \&db)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ T $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a6071f2b08a12396f47cf904f8b719ae0}{Music\+Indexer\+::\+Database\+Operations\+::get}} (sqlite\+::database \&db)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5b1ff18deb9eac461606b36cf363dc13}{Music\+Indexer\+::\+Database\+Operations\+::get\+\_\+rowid}} (sqlite\+::database \&db, const std\+::string \&str, const std\+::optional$<$ int $>$ dummy=std\+::nullopt)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::optional$<$ int $>$ \mbox{\hyperlink{namespaceMusicIndexer_1_1DatabaseOperations_a5e24f4a781071471bef5e48c0aa70f1c}{Music\+Indexer\+::\+Database\+Operations\+::insert}} (sqlite\+::database \&db, const std\+::string \&str, const std\+::optional$<$ int $>$ dummy=std\+::nullopt)
+\end{DoxyCompactItemize}
