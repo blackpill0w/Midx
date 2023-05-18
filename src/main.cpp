@@ -1,5 +1,7 @@
 #include <sqlite_modern_cpp.h>
 
+#include <sstream>
+
 #include "./database_operations.hpp"
 
 namespace DBOps = MusicIndexer::DatabaseOperations;
@@ -15,12 +17,15 @@ int main(int argc, const char *argv[]) {
   sqlite::database db{"../music_library.sqlite"};
   DBOps::init_database(db);
 
-  std::string cmd{};
-  std::string arg{};
   std::cout << "Enter 'help' to see the available commands\n";
   while (true) {
     std::cout << "-> ";
-    std::cin >> cmd >> arg;
+
+    std::string input, cmd, arg;
+    std::getline(std::cin, input);
+    std::stringstream ss{input};
+    ss >> cmd >> arg;
+
     if (cmd == "q") {
       break;
     }

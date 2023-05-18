@@ -12,7 +12,7 @@ find_package(SQLite3)
 # sqlite_modern_cpp
 include_directories(dependencies/sqlite_modern_cpp/hdr)
 # Taglib
-#add_subdirectory(dependencies/taglib-1.13)
+find_package(tag)
 
 add_executable(music-indexer
    src/main.cpp
@@ -20,7 +20,3 @@ add_executable(music-indexer
 target_link_libraries(music-indexer ${SQLite3_LIBRARIES} tag)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-# Copy root/build/compile_commands.json to root/
-if (EXISTS "${CMAKE_BINARY_DIR}/compile_commands.json")
-   FILE(COPY ${CMAKE_BINARY_DIR}/compile_commands.json DESTINATION ${CMAKE_HOME_DIRECTORY})
-endif()
