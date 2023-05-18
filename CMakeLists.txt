@@ -8,11 +8,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # Sqlite3
 find_package(SQLite3)
-#include_directories(${SQLite3_INCLUDE_DIRS})
+include_directories(${SQLite3_INCLUDE_DIRS})
 # sqlite_modern_cpp
 include_directories(dependencies/sqlite_modern_cpp/hdr)
 # Taglib
 find_package(tag)
+if (NOT tag_FOUND)
+   add_subdirectory(dependencies/tag-1.13)
+endif()
 
 add_executable(music-indexer
    src/main.cpp
