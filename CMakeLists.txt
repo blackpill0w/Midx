@@ -22,7 +22,7 @@ if (NOT taglib_FOUND)
 endif()
 
 add_executable(music-indexer
-   src/database_operations.cpp
+   src/dbops.cpp
    src/main.cpp
 )
 target_link_libraries(music-indexer tag SQLiteCpp)
