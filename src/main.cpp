@@ -6,7 +6,7 @@
 
 #include "./dbops.hpp"
 
-namespace MI    = MusicIndexer;
+namespace MI = MusicIndexer;
 
 void help() {
   std::cout <<
@@ -21,7 +21,7 @@ int main(int argc, const char *argv[]) {
   std::cout << std::boolalpha;
   SQLite::Database db{"../music_library.sqlite",
                       SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
-  DBOps::init_database(db);
-  if (std::nullopt == DBOps::scan_directory(db, "../fake_music_for_testing"))
+  MI::DBOps::init_database(db);
+  if (std::nullopt == MI::DBOps::scan_directory(db, "../fake_music_for_testing"))
     std::cerr << "WTF!!\n";
 }

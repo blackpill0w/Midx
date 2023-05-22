@@ -351,7 +351,7 @@ std::optional<int> insert<Track>(SQLite::Database& db, const std::string& file_p
 
 std::optional<int> scan_directory(SQLite::Database& db, const std::string& path,
                                   const std::optional<int> parent_dir_id) {
-  const std::string abs_path{ fs::canonical(path) };
+  const std::string abs_path{fs::canonical(path)};
   if (not fs::exists(abs_path) or not fs::is_directory(abs_path)) {
     return std::nullopt;
   }
@@ -368,4 +368,4 @@ std::optional<int> scan_directory(SQLite::Database& db, const std::string& path,
   return id;
 }
 
-}  // namespace MusicIndexer::DatabaseOperations
+}  // namespace MusicIndexer::DBOps

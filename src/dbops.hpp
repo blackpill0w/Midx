@@ -80,4 +80,4 @@ std::optional<int> insert(
 std::optional<int> scan_directory(SQLite::Database& db, const std::string& path,
                                   const std::optional<int> parent_dir_id = std::nullopt);
 
-}  // namespace MusicIndexer::DatabaseOperations
+}  // namespace MusicIndexer::DBOps
