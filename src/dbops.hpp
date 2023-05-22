@@ -8,7 +8,7 @@
 
 #include "./utils.hpp"
 
-namespace MusicIndexer::DatabaseOperations {
+namespace MusicIndexer::DBOps {
 
 /**
  * Initialise database and tables, this function also enables foreign keys check so it is

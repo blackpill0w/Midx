@@ -1,4 +1,4 @@
-#include "./database_operations.hpp"
+#include "./dbops.hpp"
 
 #include <algorithm>
 #include <array>
@@ -7,7 +7,7 @@
 
 namespace fs = std::filesystem;
 
-namespace MusicIndexer::DatabaseOperations {
+namespace MusicIndexer::DBOps {
 
 // Static helper functions
 namespace Utils {

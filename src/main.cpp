@@ -4,10 +4,9 @@
 #include <iostream>
 #include <sstream>
 
-#include "./database_operations.hpp"
+#include "./dbops.hpp"
 
 namespace MI    = MusicIndexer;
-namespace DBOps = MusicIndexer::DatabaseOperations;
 
 void help() {
   std::cout <<
