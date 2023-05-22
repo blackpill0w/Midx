@@ -1,10 +1,9 @@
 #pragma once
 
-#include <SQLiteCpp/SQLiteCpp.h>
-
 #include <optional>
 #include <string>
 #include <vector>
+#include <SQLiteCpp/SQLiteCpp.h>
 
 #include "./utils.hpp"
 

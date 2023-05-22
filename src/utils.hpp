@@ -1,9 +1,8 @@
 #pragma once
 
-#include <SQLiteCpp/SQLiteCpp.h>
-
 #include <optional>
 #include <string>
+#include <SQLiteCpp/SQLiteCpp.h>
 
 namespace MusicIndexer {
 
@@ -31,7 +30,7 @@ class Album {
         const std::optional<int> artist_id = std::nullopt)
       : id{id}, name{name}, artist_id{artist_id} {}
 
- private:
+ public:
   const int id;
   const std::string name;
   const std::optional<int> artist_id;
