@@ -12,5 +12,6 @@ with import <nixpkgs> {};
     buildInputs = with pkgs.buildPackages; [
       sqlite
       taglib
+      sqlitecpp
     ];
   }

@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['set_5fartist_5frowid_0',['set_artist_rowid',['../classMusicIndexer_1_1Album.html#af4bec45bf40fffe66534ba722adc0c75',1,'MusicIndexer::Album']]],
-  ['set_5fparent_5fdir_1',['set_parent_dir',['../classMusicIndexer_1_1Track.html#a08ae68dd74ac893fd2e18e32711fd786',1,'MusicIndexer::Track']]],
-  ['set_5frowid_2',['set_rowid',['../classMusicIndexer_1_1MusicDir.html#aa54634484984bea600cddb8c209853f5',1,'MusicIndexer::MusicDir::set_rowid()'],['../classMusicIndexer_1_1Artist.html#a74d6a12df08776b92b810cb4fbb618f1',1,'MusicIndexer::Artist::set_rowid()'],['../classMusicIndexer_1_1Album.html#a75c1c926823887a6045170b526e044fb',1,'MusicIndexer::Album::set_rowid()'],['../classMusicIndexer_1_1Track.html#aa178dadcf7f11ff09f46aa6980146e95',1,'MusicIndexer::Track::set_rowid()']]]
+  ['databaseoperations_0',['DatabaseOperations',['../namespaceMusicIndexer_1_1DatabaseOperations.html',1,'MusicIndexer']]],
+  ['main_1',['main',['../main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c',1,'main.cpp']]],
+  ['main_2ecpp_2',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['musicdir_3',['MusicDir',['../classMusicIndexer_1_1MusicDir.html#a9961ae5acdf64fa19b73173b54be0609',1,'MusicIndexer::MusicDir::MusicDir()'],['../classMusicIndexer_1_1MusicDir.html',1,'MusicIndexer::MusicDir']]],
+  ['musicindexer_4',['MusicIndexer',['../namespaceMusicIndexer.html',1,'']]],
+  ['utils_5',['Utils',['../namespaceMusicIndexer_1_1DatabaseOperations_1_1Utils.html',1,'MusicIndexer::DatabaseOperations']]]
 ];

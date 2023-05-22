@@ -1,7 +1,6 @@
 var classMusicIndexer_1_1MusicDir =
 [
-    [ "MusicDir", "classMusicIndexer_1_1MusicDir.html#aa9b9d6465f03531f14e2ddeaca496e77", null ],
-    [ "get_path", "classMusicIndexer_1_1MusicDir.html#af58adf1887681f02abfdfaec3110062a", null ],
-    [ "get_rowid", "classMusicIndexer_1_1MusicDir.html#a5645e075e354f5448959332100f06dbb", null ],
-    [ "set_rowid", "classMusicIndexer_1_1MusicDir.html#aa54634484984bea600cddb8c209853f5", null ]
+    [ "MusicDir", "classMusicIndexer_1_1MusicDir.html#a9961ae5acdf64fa19b73173b54be0609", null ],
+    [ "id", "classMusicIndexer_1_1MusicDir.html#a90c07d90dfac79617f98284c30e9456a", null ],
+    [ "path", "classMusicIndexer_1_1MusicDir.html#ae00ea388078cf22233b85697ce48e91e", null ]
 ];

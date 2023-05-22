@@ -6,20 +6,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-# Sqlite3
-find_package(SQLite3)
-include_directories(${SQLite3_INCLUDE_DIRS})
-# sqlite_modern_cpp
-include_directories(dependencies/sqlite_modern_cpp/hdr)
+# SqliteCpp
+find_package(Sqlite3)
+if (NOT SQLiteCpp_FOUND)
+   #   add_subdirectory(dependencies/SQLiteCpp)
+endif()
+find_package(SQLiteCpp)
+if (NOT SQLiteCpp_FOUND)
+   #   add_subdirectory(dependencies/SQLiteCpp)
+endif()
 # Taglib
-find_package(tag)
-if (NOT tag_FOUND)
-   add_subdirectory(dependencies/tag-1.13)
+find_package(taglib)
+if (NOT taglib_FOUND)
+   # add_subdirectory(dependencies/taglib-1.13)
 endif()
 
 add_executable(music-indexer
+   src/database_operations.cpp
    src/main.cpp
-   src/database_operations.cpp)
-target_link_libraries(music-indexer ${SQLite3_LIBRARIES} tag)
+)
+target_link_libraries(music-indexer tag SQLiteCpp)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
