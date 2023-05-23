@@ -1,6 +1,6 @@
 var namespaceMusicIndexer =
 [
-    [ "DatabaseOperations", "namespaceMusicIndexer_1_1DatabaseOperations.html", "namespaceMusicIndexer_1_1DatabaseOperations" ],
+    [ "DBOps", "namespaceMusicIndexer_1_1DBOps.html", "namespaceMusicIndexer_1_1DBOps" ],
     [ "Album", "classMusicIndexer_1_1Album.html", "classMusicIndexer_1_1Album" ],
     [ "Artist", "classMusicIndexer_1_1Artist.html", "classMusicIndexer_1_1Artist" ],
     [ "MusicDir", "classMusicIndexer_1_1MusicDir.html", "classMusicIndexer_1_1MusicDir" ],

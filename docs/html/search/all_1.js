@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['database_5foperations_2ecpp_0',['database_operations.cpp',['../database__operations_8cpp.html',1,'']]],
-  ['database_5foperations_2ehpp_1',['database_operations.hpp',['../database__operations_8hpp.html',1,'']]]
+  ['build_5fmusic_5flibrary_0',['build_music_library',['../namespaceMusicIndexer_1_1DBOps.html#a98a567bdd324f66c4aba5382a508676b',1,'MusicIndexer::DBOps']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['file_5fpath_0',['file_path',['../classMusicIndexer_1_1Track.html#a42354f1949c0e516b1b90f644c4944c5',1,'MusicIndexer::Track']]]
+  ['dbops_2ecpp_0',['dbops.cpp',['../dbops_8cpp.html',1,'']]],
+  ['dbops_2ehpp_1',['dbops.hpp',['../dbops_8hpp.html',1,'']]]
 ];

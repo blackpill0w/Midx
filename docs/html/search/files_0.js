@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['database_5foperations_2ecpp_0',['database_operations.cpp',['../database__operations_8cpp.html',1,'']]],
-  ['database_5foperations_2ehpp_1',['database_operations.hpp',['../database__operations_8hpp.html',1,'']]]
+  ['dbops_2ecpp_0',['dbops.cpp',['../dbops_8cpp.html',1,'']]],
+  ['dbops_2ehpp_1',['dbops.hpp',['../dbops_8hpp.html',1,'']]]
 ];

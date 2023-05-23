@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['scan_5fdirectory_0',['scan_directory',['../namespaceMusicIndexer_1_1DatabaseOperations.html#a3673e8dcc26040bb044cad04eeed95c9',1,'MusicIndexer::DatabaseOperations']]]
+  ['main_0',['main',['../main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c',1,'main.cpp']]],
+  ['musicdir_1',['MusicDir',['../classMusicIndexer_1_1MusicDir.html#a9961ae5acdf64fa19b73173b54be0609',1,'MusicIndexer::MusicDir']]]
 ];

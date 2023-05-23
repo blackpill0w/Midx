@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Music-Indexer: MusicIndexer::Album Class Reference</title>
+<title>Music-Indexer: MusicIndexer::DBOps::Utils Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classMusicIndexer_1_1Album.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('namespaceMusicIndexer_1_1DBOps_1_1Utils.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -104,32 +104,23 @@ $(document).ready(function(){initNavTree('classMusicIndexer_1_1Album.html',''); 
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="classMusicIndexer_1_1Album-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">MusicIndexer::Album Class Reference</div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">MusicIndexer::DBOps::Utils Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="utils_8hpp_source.html">utils.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a886ccb8cf7bfe01ab9c697b5f56cfd43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Album.html#a886ccb8cf7bfe01ab9c697b5f56cfd43">Album</a> (const std::string &amp;<a class="el" href="classMusicIndexer_1_1Album.html#ac98d8900953103ca94dcfdd012111ac8">name</a>, const int <a class="el" href="classMusicIndexer_1_1Album.html#a01df8ed28ba6989bac5264396d4a1c8f">id</a>, const std::optional&lt; int &gt; <a class="el" href="classMusicIndexer_1_1Album.html#ab6d0408bd5d2f9011dfcf866f8a5393c">artist_id</a>=std::nullopt)</td></tr>
-<tr class="separator:a886ccb8cf7bfe01ab9c697b5f56cfd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a01df8ed28ba6989bac5264396d4a1c8f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Album.html#a01df8ed28ba6989bac5264396d4a1c8f">id</a></td></tr>
-<tr class="separator:a01df8ed28ba6989bac5264396d4a1c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac98d8900953103ca94dcfdd012111ac8"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Album.html#ac98d8900953103ca94dcfdd012111ac8">name</a></td></tr>
-<tr class="separator:ac98d8900953103ca94dcfdd012111ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6d0408bd5d2f9011dfcf866f8a5393c"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Album.html#ab6d0408bd5d2f9011dfcf866f8a5393c">artist_id</a></td></tr>
-<tr class="separator:ab6d0408bd5d2f9011dfcf866f8a5393c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:af08cfe8a10ae5b732ad35dac2fc23bf5"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps_1_1Utils.html#af08cfe8a10ae5b732ad35dac2fc23bf5">is_supported_file_type</a> (const std::string &amp;path)</td></tr>
+<tr class="separator:af08cfe8a10ae5b732ad35dac2fc23bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4d64eca441efafa5a6838ec62894fb"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps_1_1Utils.html#aba4d64eca441efafa5a6838ec62894fb">load_metadata</a> (SQLite::Database &amp;db, const int track_id, const std::string &amp;file_path)</td></tr>
+<tr class="separator:aba4d64eca441efafa5a6838ec62894fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf7e0ead3de8c4ba14e3dde2aceb0090"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps_1_1Utils.html#acf7e0ead3de8c4ba14e3dde2aceb0090">insert_metadata</a> (SQLite::Database &amp;db, const <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &amp;tm)</td></tr>
+<tr class="separator:acf7e0ead3de8c4ba14e3dde2aceb0090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a886ccb8cf7bfe01ab9c697b5f56cfd43" name="a886ccb8cf7bfe01ab9c697b5f56cfd43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a886ccb8cf7bfe01ab9c697b5f56cfd43">&#9670;&#160;</a></span>Album()</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="acf7e0ead3de8c4ba14e3dde2aceb0090" name="acf7e0ead3de8c4ba14e3dde2aceb0090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf7e0ead3de8c4ba14e3dde2aceb0090">&#9670;&#160;</a></span>insert_metadata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,22 +129,16 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">MusicIndexer::Album::Album </td>
+          <td class="memname">static std::optional&lt; int &gt; MusicIndexer::DBOps::Utils::insert_metadata </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">SQLite::Database &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::optional&lt; int &gt;&#160;</td>
-          <td class="paramname"><em>artist_id</em> = <code>std::nullopt</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &amp;&#160;</td>
+          <td class="paramname"><em>tm</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -163,65 +148,90 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+<p >Insert a <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> object into the database </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab6d0408bd5d2f9011dfcf866f8a5393c" name="ab6d0408bd5d2f9011dfcf866f8a5393c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6d0408bd5d2f9011dfcf866f8a5393c">&#9670;&#160;</a></span>artist_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::optional&lt;int&gt; MusicIndexer::Album::artist_id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a01df8ed28ba6989bac5264396d4a1c8f" name="a01df8ed28ba6989bac5264396d4a1c8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01df8ed28ba6989bac5264396d4a1c8f">&#9670;&#160;</a></span>id</h2>
+<a id="af08cfe8a10ae5b732ad35dac2fc23bf5" name="af08cfe8a10ae5b732ad35dac2fc23bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af08cfe8a10ae5b732ad35dac2fc23bf5">&#9670;&#160;</a></span>is_supported_file_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int MusicIndexer::Album::id</td>
+          <td class="memname">static bool MusicIndexer::DBOps::Utils::is_supported_file_type </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<p >Checks whether a file is of a supported format. Currently only <code>.flac</code> and <code>.mp3</code> are supported. </p>
 
 </div>
 </div>
-<a id="ac98d8900953103ca94dcfdd012111ac8" name="ac98d8900953103ca94dcfdd012111ac8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac98d8900953103ca94dcfdd012111ac8">&#9670;&#160;</a></span>name</h2>
+<a id="aba4d64eca441efafa5a6838ec62894fb" name="aba4d64eca441efafa5a6838ec62894fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4d64eca441efafa5a6838ec62894fb">&#9670;&#160;</a></span>load_metadata()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string MusicIndexer::Album::name</td>
+          <td class="memname">static std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt; MusicIndexer::DBOps::Utils::load_metadata </td>
+          <td>(</td>
+          <td class="paramtype">SQLite::Database &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>track_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<p >Get metadata from a file. </p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/blackpill0w/Code/c_c++/Music-Indexer/src/<a class="el" href="utils_8hpp_source.html">utils.hpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceMusicIndexer.html">MusicIndexer</a></li><li class="navelem"><a class="el" href="classMusicIndexer_1_1Album.html">Album</a></li>
+    <li class="navelem"><a class="el" href="namespaceMusicIndexer.html">MusicIndexer</a></li><li class="navelem"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html">DBOps</a></li><li class="navelem"><a class="el" href="namespaceMusicIndexer_1_1DBOps_1_1Utils.html">Utils</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>

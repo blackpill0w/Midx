@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Music-Indexer: /home/blackpill0w/Code/c_c++/Music-Indexer/src/database_operations.hpp File Reference</title>
+<title>Music-Indexer: /home/blackpill0w/Code/c_c++/Music-Indexer/src/dbops.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('database__operations_8hpp.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('dbops_8hpp.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -106,49 +106,51 @@ $(document).ready(function(){initNavTree('database__operations_8hpp.html',''); i
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">database_operations.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">dbops.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;SQLiteCpp/SQLiteCpp.h&gt;</code><br />
-<code>#include &lt;optional&gt;</code><br />
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;SQLiteCpp/SQLiteCpp.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="utils_8hpp_source.html">./utils.hpp</a>&quot;</code><br />
 </div>
-<p><a href="database__operations_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="dbops_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceMusicIndexer"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html">MusicIndexer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceMusicIndexer_1_1DatabaseOperations"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html">MusicIndexer::DatabaseOperations</a></td></tr>
+<tr class="memitem:namespaceMusicIndexer_1_1DBOps"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html">MusicIndexer::DBOps</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7b2b8577bc769cefcadecb575f68ec7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#a7b2b8577bc769cefcadecb575f68ec7d">MusicIndexer::DatabaseOperations::init_database</a> (SQLite::Database &amp;db)</td></tr>
-<tr class="separator:a7b2b8577bc769cefcadecb575f68ec7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f38c98d7b4f8f4f9246d951d34a85dc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0f38c98d7b4f8f4f9246d951d34a85dc"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#a0f38c98d7b4f8f4f9246d951d34a85dc">MusicIndexer::DatabaseOperations::get</a> (SQLite::Database &amp;db)</td></tr>
-<tr class="separator:a0f38c98d7b4f8f4f9246d951d34a85dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb2e97e0e8405faa2b81dbba58e8af5e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:abb2e97e0e8405faa2b81dbba58e8af5e"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#abb2e97e0e8405faa2b81dbba58e8af5e">MusicIndexer::DatabaseOperations::is_valid_id</a> (SQLite::Database &amp;db, const int id)</td></tr>
-<tr class="separator:abb2e97e0e8405faa2b81dbba58e8af5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c332178cd765c17c862fc1416bc28dc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a7c332178cd765c17c862fc1416bc28dc"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#a7c332178cd765c17c862fc1416bc28dc">MusicIndexer::DatabaseOperations::get_id</a> (SQLite::Database &amp;db, const std::string &amp;str, const std::optional&lt; int &gt; dummy=std::nullopt)</td></tr>
-<tr class="separator:a7c332178cd765c17c862fc1416bc28dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5683e8c38a9a125ec7aa32a4dcf62b15"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5683e8c38a9a125ec7aa32a4dcf62b15"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#a5683e8c38a9a125ec7aa32a4dcf62b15">MusicIndexer::DatabaseOperations::insert</a> (SQLite::Database &amp;db, const std::string &amp;str, const std::optional&lt; int &gt; dummy=std::nullopt)</td></tr>
-<tr class="separator:a5683e8c38a9a125ec7aa32a4dcf62b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3673e8dcc26040bb044cad04eeed95c9"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DatabaseOperations.html#a3673e8dcc26040bb044cad04eeed95c9">MusicIndexer::DatabaseOperations::scan_directory</a> (SQLite::Database &amp;db, const std::string &amp;path, const std::optional&lt; int &gt; parent_dir_id)</td></tr>
-<tr class="separator:a3673e8dcc26040bb044cad04eeed95c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7d8d8103374fbec862833c1a2dc49a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#ace7d8d8103374fbec862833c1a2dc49a">MusicIndexer::DBOps::init_database</a> (SQLite::Database &amp;db)</td></tr>
+<tr class="separator:ace7d8d8103374fbec862833c1a2dc49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf3cb9baa58c9f699b8b8f47281f667"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5bf3cb9baa58c9f699b8b8f47281f667"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#a5bf3cb9baa58c9f699b8b8f47281f667">MusicIndexer::DBOps::get_all</a> (SQLite::Database &amp;db)</td></tr>
+<tr class="separator:a5bf3cb9baa58c9f699b8b8f47281f667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd4ec7c53e99cbcce404880e9a6e1e3b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:acd4ec7c53e99cbcce404880e9a6e1e3b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#acd4ec7c53e99cbcce404880e9a6e1e3b">MusicIndexer::DBOps::is_valid_id</a> (SQLite::Database &amp;db, const int id)</td></tr>
+<tr class="separator:acd4ec7c53e99cbcce404880e9a6e1e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5482fec55f818a22cf4c51d1a58672b1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5482fec55f818a22cf4c51d1a58672b1"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#a5482fec55f818a22cf4c51d1a58672b1">MusicIndexer::DBOps::get_id</a> (SQLite::Database &amp;db, const std::string &amp;str, const std::optional&lt; int &gt; dummy=std::nullopt)</td></tr>
+<tr class="separator:a5482fec55f818a22cf4c51d1a58672b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cbe8db6e1e3a63da3ed4795835f449e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7cbe8db6e1e3a63da3ed4795835f449e"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#a7cbe8db6e1e3a63da3ed4795835f449e">MusicIndexer::DBOps::insert</a> (SQLite::Database &amp;db, const std::string &amp;str, const std::optional&lt; int &gt; dummy=std::nullopt)</td></tr>
+<tr class="separator:a7cbe8db6e1e3a63da3ed4795835f449e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab195a4449ed6e63dcd87c51938e62808"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#ab195a4449ed6e63dcd87c51938e62808">MusicIndexer::DBOps::scan_directory</a> (SQLite::Database &amp;db, const std::string &amp;path)</td></tr>
+<tr class="separator:ab195a4449ed6e63dcd87c51938e62808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a567bdd324f66c4aba5382a508676b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer_1_1DBOps.html#a98a567bdd324f66c4aba5382a508676b">MusicIndexer::DBOps::build_music_library</a> (SQLite::Database &amp;db)</td></tr>
+<tr class="separator:a98a567bdd324f66c4aba5382a508676b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="database__operations_8hpp.html">database_operations.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dbops_8hpp.html">dbops.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
