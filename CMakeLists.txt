@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(Music-Indexer CXX)
+project(MusicIndexer CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,7 +13,7 @@ if (NOT SQLiteCpp_FOUND)
 endif()
 find_package(SQLiteCpp)
 if (NOT SQLiteCpp_FOUND)
-   #   add_subdirectory(dependencies/SQLiteCpp)
+   # add_subdirectory(dependencies/SQLiteCpp)
 endif()
 # Taglib
 find_package(taglib)
@@ -21,10 +21,10 @@ if (NOT taglib_FOUND)
    # add_subdirectory(dependencies/taglib-1.13)
 endif()
 
-add_executable(music-indexer
-   src/dbops.cpp
-   src/main.cpp
-)
-target_link_libraries(music-indexer tag SQLiteCpp)
+add_library(MusicIndexer STATIC src/dbops.cpp)
+target_link_libraries(MusicIndexer tag SQLiteCpp)
+
+add_executable(test src/main.cpp)
+target_link_libraries(test MusicIndexer)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

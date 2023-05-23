@@ -18,9 +18,8 @@ void init_database(SQLite::Database& db);
 /**
  *  Get all music directories, artists, albums or tracks in the database.
  */
-
 template<typename T>
-std::vector<T> get(SQLite::Database& db) {
+std::vector<T> get_all(SQLite::Database& db) {
   constexpr bool valid_type =
       std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
       std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
@@ -35,7 +34,8 @@ template<typename T>
 inline bool is_valid_id(SQLite::Database& db, const int id) {
   constexpr bool valid_type =
       std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
-      std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
+      std::is_convertible<T, Album>() or std::is_convertible<T, Track>() or
+      std::is_convertible<T, TrackMetadata>();
   static_assert(valid_type, "------------ ERROR: Invalid DataType to is_valid_id()\n");
   return false;
 }
@@ -76,7 +76,12 @@ std::optional<int> insert(
 /**
  * Recursively scan a directory given its relative or absolute path.
  */
-std::optional<int> scan_directory(SQLite::Database& db, const std::string& path,
-                                  const std::optional<int> parent_dir_id = std::nullopt);
+std::optional<int> scan_directory(SQLite::Database& db, const std::string& path);
+
+/**
+ * Scan all directories present in the database and add all the existing tracks,
+ * artists...
+ */
+void build_music_library(SQLite::Database& db);
 
 }  // namespace MusicIndexer::DBOps
