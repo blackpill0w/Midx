@@ -102,7 +102,6 @@ std::vector<MusicDir> get_all<MusicDir>(SQLite::Database& db) {
   std::vector<MusicDir> res{};
   SQLite::Statement stmt{db, "SELECT id, path FROM t_music_dirs"};
   while (stmt.executeStep()) {
-    std::cout << stmt.getColumn(1).getString() << "\n";
     const int id = stmt.getColumn(0);
     const std::string dir_name{stmt.getColumn(1).getString()};
     res.emplace_back(MusicDir{std::move(dir_name), id});
@@ -191,15 +190,6 @@ bool is_valid_id<Track>(SQLite::Database& db, const int id) {
   return stmt.getColumn(0).getInt() == 1;
 }
 
-template<>
-bool is_valid_id<TrackMetadata>(SQLite::Database& db, const int id) {
-  SQLite::Statement stmt{db,
-                         "SELECT EXISTS(SELECT 1 FROM t_tracks_metadata WHERE id = ?)"};
-  stmt.bind(1, id);
-  stmt.executeStep();
-  return stmt.getColumn(0).getInt() == 1;
-}
-
 /**
  * @param path absolute or relative path to the directory
  */
@@ -233,12 +223,13 @@ std::optional<int> get_id<Album>(SQLite::Database& db, const std::string& name,
                                  const std::optional<int> artist_id) {
   SQLite::Statement stmt{db, "SELECT id FROM t_albums WHERE name = ? AND artist_id = ?"};
   stmt.bindNoCopy(1, name);
-  if (artist_id.has_value())
+  if (artist_id.has_value()) {
     stmt.bind(2, artist_id.value());
+  }
   else
     stmt.bind(2);
   stmt.executeStep();
-  return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0)} : std::nullopt;
+  return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0).getInt()} : std::nullopt;
 }
 
 /**
@@ -291,7 +282,7 @@ std::optional<int> insert<Artist>(SQLite::Database& db, const std::string& name,
                          "INSERT OR IGNORE INTO t_artists (id, name) VALUES (NULL, ?)"};
   stmt.bindNoCopy(1, name);
   stmt.exec();
-  return get_id<Album>(db, name);
+  return get_id<Artist>(db, name);
 }
 
 /**
@@ -308,9 +299,8 @@ std::optional<int> insert<Artist>(SQLite::Database& db, const std::string& name,
 template<>
 std::optional<int> insert<Album>(SQLite::Database& db, const std::string& name,
                                  const std::optional<int> artist_id) {
-  if (artist_id.has_value() and not is_valid_id<Artist>(db, artist_id.value())) {
+  if (artist_id.has_value() and not is_valid_id<Artist>(db, artist_id.value()))
     return std::nullopt;
-  }
   SQLite::Statement stmt{
       db, "INSERT OR IGNORE INTO t_albums (id, name, artist_id) VALUES (NULL, ?, ?)"};
   stmt.bindNoCopy(1, name);
@@ -320,7 +310,7 @@ std::optional<int> insert<Album>(SQLite::Database& db, const std::string& name,
     stmt.bind(2);
   stmt.exec();
 
-  return get_id<Album>(db, name);
+  return get_id<Album>(db, name, artist_id);
 }
 
 /**
@@ -337,11 +327,8 @@ std::optional<int> insert<Album>(SQLite::Database& db, const std::string& name,
 template<>
 std::optional<int> insert<Track>(SQLite::Database& db, const std::string& file_path,
                                  const std::optional<int> parent_dir_id) {
-  if (parent_dir_id == std::nullopt) {
-    return std::nullopt;
-  }
-  if (parent_dir_id.has_value() and
-      not is_valid_id<MusicDir>(db, parent_dir_id.value())) {
+  if (not parent_dir_id or (parent_dir_id.has_value() and
+                            not is_valid_id<MusicDir>(db, parent_dir_id.value()))) {
     return std::nullopt;
   }
   const std::string abs_path = fs::canonical(file_path);
@@ -415,17 +402,13 @@ static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database& db,
   std::optional<int> artist_id = std::nullopt;
   if (not fref.tag()->artist().isEmpty()) {
     const std::string artist = fref.tag()->artist().to8Bit(true);
-    artist_id                = get_id<Artist>(db, artist);
-    if (not artist_id.has_value())
-      artist_id = insert<Artist>(db, artist);
+    artist_id                = insert<Artist>(db, artist);
   }
 
   std::optional<int> album_id = std::nullopt;
   if (not fref.tag()->album().isEmpty()) {
     const std::string album = fref.tag()->album().to8Bit(true);
-    album_id                = get_id<Album>(db, album, artist_id);
-    if (not album_id.has_value())
-      album_id = insert<Album>(db, album, artist_id);
+    album_id                = insert<Album>(db, album, artist_id);
   }
 
   return TrackMetadata(track_id, title, trk_num, artist_id, album_id);

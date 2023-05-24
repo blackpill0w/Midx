@@ -34,8 +34,7 @@ template<typename T>
 inline bool is_valid_id(SQLite::Database& db, const int id) {
   constexpr bool valid_type =
       std::is_convertible<T, MusicDir>() or std::is_convertible<T, Artist>() or
-      std::is_convertible<T, Album>() or std::is_convertible<T, Track>() or
-      std::is_convertible<T, TrackMetadata>();
+      std::is_convertible<T, Album>() or std::is_convertible<T, Track>();
   static_assert(valid_type, "------------ ERROR: Invalid DataType to is_valid_id()\n");
   return false;
 }

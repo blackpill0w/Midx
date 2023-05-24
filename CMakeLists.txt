@@ -8,17 +8,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 # SqliteCpp
 find_package(Sqlite3)
-if (NOT SQLiteCpp_FOUND)
-   #   add_subdirectory(dependencies/SQLiteCpp)
-endif()
 find_package(SQLiteCpp)
 if (NOT SQLiteCpp_FOUND)
-   # add_subdirectory(dependencies/SQLiteCpp)
+   add_subdirectory(dependencies/SQLiteCpp)
 endif()
 # Taglib
 find_package(taglib)
 if (NOT taglib_FOUND)
-   # add_subdirectory(dependencies/taglib-1.13)
+   add_subdirectory(dependencies/taglib-1.13)
 endif()
 
 add_library(MusicIndexer STATIC src/dbops.cpp)
