@@ -8,3 +8,5 @@ Run this from the root directory of the project.
 ```bash
 mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && cmake --build .
 ```
+# TODO
+- Indexing cover art.
