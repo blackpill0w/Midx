@@ -15,6 +15,5 @@ with import <nixpkgs> {};
       sqlite
       taglib
       sqlitecpp
-      qt6.qtmultimedia
     ];
   }

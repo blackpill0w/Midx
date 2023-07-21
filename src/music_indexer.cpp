@@ -1,4 +1,4 @@
-#include "./dbops.hpp"
+#include "./music_indexer.hpp"
 
 #include <algorithm>
 #include <array>
@@ -6,12 +6,19 @@
 #include <iostream>
 #include <fstream>
 #include <ranges>
+#include <vector>
+
 #include <SQLiteCpp/SQLiteCpp.h>
+
 #include <taglib/fileref.h>
+#include <taglib/flacfile.h>
+#include <taglib/mpegfile.h>
+#include <taglib/id3v2tag.h>
+#include <taglib/attachedpictureframe.h>
 
 namespace fs = std::filesystem;
 
-namespace MusicIndexer::DBOps {
+namespace MusicIndexer {
 
 // Static helper functions
 namespace Utils {
@@ -20,23 +27,37 @@ namespace Utils {
  * Checks whether a file is of a supported format.
  * Currently only `.flac` and `.mp3` are supported.
  */
-static bool is_supported_file_type(const std::string& path);
+static bool is_supported_file_type(const std::string &path);
 
 /**
  * Get metadata from a file.
  */
-static std::optional<TrackMetadata> load_metadata(SQLite::Database& db,
-                                                  const int track_id,
-                                                  const std::string& file_path);
+static std::optional<TrackMetadata> load_metadata(SQLite::Database &db, const int track_id,
+                                                  const std::string &file_path);
+
+/**
+ * Extract album art from FLAC file.
+ */
+static std::optional<TagLib::ByteVector> get_flac_album_art(const std::string &filename);
+
+/**
+ * Extract album art from MP3 file.
+ */
+static std::optional<TagLib::ByteVector> get_mp3_album_art(const std::string &filename);
+
+/**
+ * Extract album art from tags.
+ */
+static std::optional<TagLib::ByteVector> get_album_art(const std::string &filename);
 
 /**
  * Insert a TrackMetadata object into the database
  */
-static std::optional<int> insert_metadata(SQLite::Database& db, const TrackMetadata& tm);
+static std::optional<int> insert_metadata(SQLite::Database &db, const TrackMetadata &tm);
 
 }  // namespace Utils
 
-void init_database(SQLite::Database& db) {
+void init_database(SQLite::Database &db) {
   try {
     db.exec("PRAGMA foreign_keys = ON;");
     // Create music directiries table
@@ -86,7 +107,7 @@ void init_database(SQLite::Database& db) {
         FOREIGN KEY(album_id)      REFERENCES t_albums(id)
       );
     )--");
-  } catch (SQLite::Exception& e) {
+  } catch (SQLite::Exception &e) {
     std::cerr << "Error initialising databases: " << e.what() << "\n";
     std::cerr << "Code: " << e.getErrorCode();
     std::cerr << "Query: " << e.getErrorStr() << "\n";
@@ -98,7 +119,7 @@ void init_database(SQLite::Database& db) {
  * Get all the music directories.
  */
 template<>
-std::vector<MusicDir> get_all<MusicDir>(SQLite::Database& db) {
+std::vector<MusicDir> get_all<MusicDir>(SQLite::Database &db) {
   std::vector<MusicDir> res{};
   SQLite::Statement stmt{db, "SELECT id, path FROM t_music_dirs"};
   while (stmt.executeStep()) {
@@ -113,7 +134,7 @@ std::vector<MusicDir> get_all<MusicDir>(SQLite::Database& db) {
  * Get all the artists.
  */
 template<>
-std::vector<Artist> get_all<Artist>(SQLite::Database& db) {
+std::vector<Artist> get_all<Artist>(SQLite::Database &db) {
   std::vector<Artist> res{};
   SQLite::Statement stmt{db, "SELECT id, name FROM t_artists"};
   while (stmt.executeStep()) {
@@ -128,7 +149,7 @@ std::vector<Artist> get_all<Artist>(SQLite::Database& db) {
  * Get all the albums.
  */
 template<>
-std::vector<Album> get_all<Album>(SQLite::Database& db) {
+std::vector<Album> get_all<Album>(SQLite::Database &db) {
   std::vector<Album> res{};
   SQLite::Statement stmt{db, "SELECT id, name, artist_id FROM t_albums"};
   while (stmt.executeStep()) {
@@ -145,7 +166,7 @@ std::vector<Album> get_all<Album>(SQLite::Database& db) {
  * Get all the tracks.
  */
 template<>
-std::vector<Track> get_all<Track>(SQLite::Database& db) {
+std::vector<Track> get_all<Track>(SQLite::Database &db) {
   std::vector<Track> res{};
 
   SQLite::Statement stmt{db, "SELECT id, file_path, parent_dir_id FROM t_tracks"};
@@ -159,7 +180,7 @@ std::vector<Track> get_all<Track>(SQLite::Database& db) {
 }
 
 template<>
-bool is_valid_id<MusicDir>(SQLite::Database& db, const int id) {
+bool is_valid_id<MusicDir>(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_music_dirs WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
@@ -167,7 +188,7 @@ bool is_valid_id<MusicDir>(SQLite::Database& db, const int id) {
 }
 
 template<>
-bool is_valid_id<Artist>(SQLite::Database& db, const int id) {
+bool is_valid_id<Artist>(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_artists WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
@@ -175,7 +196,7 @@ bool is_valid_id<Artist>(SQLite::Database& db, const int id) {
 }
 
 template<>
-bool is_valid_id<Album>(SQLite::Database& db, const int id) {
+bool is_valid_id<Album>(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_albums WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
@@ -183,7 +204,7 @@ bool is_valid_id<Album>(SQLite::Database& db, const int id) {
 }
 
 template<>
-bool is_valid_id<Track>(SQLite::Database& db, const int id) {
+bool is_valid_id<Track>(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_tracks WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
@@ -194,7 +215,7 @@ bool is_valid_id<Track>(SQLite::Database& db, const int id) {
  * @param path absolute or relative path to the directory
  */
 template<>
-std::optional<int> get_id<MusicDir>(SQLite::Database& db, const std::string& path,
+std::optional<int> get_id<MusicDir>(SQLite::Database &db, const std::string &path,
                                     [[maybe_unused]] const std::optional<int> dummy) {
   SQLite::Statement stmt{db, "SELECT id FROM t_music_dirs WHERE path = ?"};
   stmt.bindNoCopy(1, path);
@@ -206,7 +227,7 @@ std::optional<int> get_id<MusicDir>(SQLite::Database& db, const std::string& pat
  * @param name name of the artist
  */
 template<>
-std::optional<int> get_id<Artist>(SQLite::Database& db, const std::string& name,
+std::optional<int> get_id<Artist>(SQLite::Database &db, const std::string &name,
                                   [[maybe_unused]] const std::optional<int> dummy) {
   SQLite::Statement stmt{db, "SELECT id FROM t_artists WHERE name = ?"};
   stmt.bindNoCopy(1, name);
@@ -219,7 +240,7 @@ std::optional<int> get_id<Artist>(SQLite::Database& db, const std::string& name,
  * @param artist_id the id of the albums's artist if it exists
  */
 template<>
-std::optional<int> get_id<Album>(SQLite::Database& db, const std::string& name,
+std::optional<int> get_id<Album>(SQLite::Database &db, const std::string &name,
                                  const std::optional<int> artist_id) {
   SQLite::Statement stmt{db, "SELECT id FROM t_albums WHERE name = ? AND artist_id = ?"};
   stmt.bindNoCopy(1, name);
@@ -236,7 +257,7 @@ std::optional<int> get_id<Album>(SQLite::Database& db, const std::string& name,
  * @param file_path path to the track's file
  */
 template<>
-std::optional<int> get_id<Track>(SQLite::Database& db, const std::string& file_path,
+std::optional<int> get_id<Track>(SQLite::Database &db, const std::string &file_path,
                                  [[maybe_unused]] const std::optional<int> dummy) {
   SQLite::Statement stmt{db, "SELECT id FROM t_tracks WHERE file_path = ?"};
   stmt.bindNoCopy(1, file_path);
@@ -254,13 +275,12 @@ std::optional<int> get_id<Track>(SQLite::Database& db, const std::string& file_p
  * std::nullopt.
  */
 template<>
-std::optional<int> insert<MusicDir>(SQLite::Database& db, const std::string& path,
+std::optional<int> insert<MusicDir>(SQLite::Database &db, const std::string &path,
                                     [[maybe_unused]] const std::optional<int> dummy) {
   if (not fs::exists(path) or not fs::is_directory(path))
     return std::nullopt;
   const std::string abs_path = fs::canonical(path);
-  SQLite::Statement stmt{
-      db, "INSERT OR IGNORE INTO t_music_dirs (id, path) VALUES (NULL, ?)"};
+  SQLite::Statement stmt{db, "INSERT OR IGNORE INTO t_music_dirs (id, path) VALUES (NULL, ?)"};
   stmt.bindNoCopy(1, abs_path);
   stmt.exec();
   return get_id<MusicDir>(db, abs_path);
@@ -276,10 +296,9 @@ std::optional<int> insert<MusicDir>(SQLite::Database& db, const std::string& pat
  * otherwise std::nullopt.
  */
 template<>
-std::optional<int> insert<Artist>(SQLite::Database& db, const std::string& name,
+std::optional<int> insert<Artist>(SQLite::Database &db, const std::string &name,
                                   [[maybe_unused]] const std::optional<int> dummy) {
-  SQLite::Statement stmt{db,
-                         "INSERT OR IGNORE INTO t_artists (id, name) VALUES (NULL, ?)"};
+  SQLite::Statement stmt{db, "INSERT OR IGNORE INTO t_artists (id, name) VALUES (NULL, ?)"};
   stmt.bindNoCopy(1, name);
   stmt.exec();
   return get_id<Artist>(db, name);
@@ -297,7 +316,7 @@ std::optional<int> insert<Artist>(SQLite::Database& db, const std::string& name,
  * otherwise std::nullopt.
  */
 template<>
-std::optional<int> insert<Album>(SQLite::Database& db, const std::string& name,
+std::optional<int> insert<Album>(SQLite::Database &db, const std::string &name,
                                  const std::optional<int> artist_id) {
   if (artist_id.has_value() and not is_valid_id<Artist>(db, artist_id.value()))
     return std::nullopt;
@@ -325,10 +344,10 @@ std::optional<int> insert<Album>(SQLite::Database& db, const std::string& name,
  * otherwise std::nullopt.
  */
 template<>
-std::optional<int> insert<Track>(SQLite::Database& db, const std::string& file_path,
+std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_path,
                                  const std::optional<int> parent_dir_id) {
-  if (not parent_dir_id or (parent_dir_id.has_value() and
-                            not is_valid_id<MusicDir>(db, parent_dir_id.value()))) {
+  if (not parent_dir_id or
+      (parent_dir_id.has_value() and not is_valid_id<MusicDir>(db, parent_dir_id.value()))) {
     return std::nullopt;
   }
   const std::string abs_path = fs::canonical(file_path);
@@ -351,13 +370,33 @@ std::optional<int> insert<Track>(SQLite::Database& db, const std::string& file_p
   return trk_id;
 }
 
-std::optional<int> scan_directory(SQLite::Database& db, const std::string& path) {
+/**
+ * Remove a directory from the database.
+ *
+ * @param path absolute or relative path to the directory.
+ *
+ * @return the id of the inserted item if everthing goes correctly, otherwise
+ * std::nullopt.
+ */
+template<>
+bool remove<MusicDir>(SQLite::Database &db, const std::string &path,
+                                    [[maybe_unused]] const std::optional<int> dummy) {
+  if (not fs::exists(path) or not fs::is_directory(path))
+    return false;
+  const std::string abs_path = fs::canonical(path);
+  SQLite::Statement stmt{db, "DELETE FROM t_music_dirs WHERE path = ?"};
+  stmt.bindNoCopy(1, abs_path);
+  stmt.exec();
+  return true;
+}
+
+std::optional<int> scan_directory(SQLite::Database &db, const std::string &path) {
   const std::string abs_path{fs::canonical(path)};
   if (not fs::exists(abs_path) or not fs::is_directory(abs_path)) {
     return std::nullopt;
   }
   const std::optional<int> id = insert<MusicDir>(db, abs_path);
-  for (const auto& dir_entry : fs::recursive_directory_iterator(abs_path)) {
+  for (const auto &dir_entry : fs::recursive_directory_iterator(abs_path)) {
     if (dir_entry.is_regular_file() && Utils::is_supported_file_type(dir_entry.path())) {
       insert<Track>(db, dir_entry.path(), id);
     }
@@ -365,9 +404,9 @@ std::optional<int> scan_directory(SQLite::Database& db, const std::string& path)
   return id;
 }
 
-void build_music_library(SQLite::Database& db) {
+void build_music_library(SQLite::Database &db) {
   const auto mdirs = get_all<MusicDir>(db);
-  for (const auto& mdir : mdirs)
+  for (const auto &mdir : mdirs)
     scan_directory(db, mdir.path);
 }
 
@@ -375,14 +414,13 @@ void build_music_library(SQLite::Database& db) {
 /***************************--| Static Functions |--***************************/
 /******************************************************************************/
 
-static bool Utils::is_supported_file_type(const std::string& path) {
+static bool Utils::is_supported_file_type(const std::string &path) {
   static constexpr std::array<std::string_view, 2> exts{".flac", ".mp3"};
-  return std::ranges::any_of(exts, [&](const auto& ext) { return path.ends_with(ext); });
+  return std::ranges::any_of(exts, [&](const auto &ext) { return path.ends_with(ext); });
 }
 
-static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database& db,
-                                                         const int track_id,
-                                                         const std::string& file_path) {
+static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database &db, const int track_id,
+                                                         const std::string &file_path) {
   if (not is_valid_id<Track>(db, track_id))
     return std::nullopt;
   TagLib::FileRef fref{file_path.c_str()};
@@ -414,8 +452,40 @@ static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database& db,
   return TrackMetadata(track_id, title, trk_num, artist_id, album_id);
 }
 
-static std::optional<int> Utils::insert_metadata(SQLite::Database& db,
-                                                 const TrackMetadata& tm) {
+static std::optional<TagLib::ByteVector> Utils::get_flac_album_art(const std::string &filename) {
+  if (not is_supported_file_type(filename) or filename.ends_with(".flac"))
+    return std::nullopt;
+
+  TagLib::FLAC::File f{filename.c_str()};
+  if (not f.isValid() or f.pictureList().isEmpty())
+    return std::nullopt;
+  return f.pictureList().front()->data();
+}
+
+static std::optional<TagLib::ByteVector> Utils::get_mp3_album_art(const std::string &filename) {
+  if (not is_supported_file_type(filename) or filename.ends_with(".mp3"))
+    return std::nullopt;
+  TagLib::MPEG::File f{filename.c_str()};
+  if (not f.isValid() or not f.hasID3v2Tag())
+    return std::nullopt;
+  auto *tags      = f.ID3v2Tag();
+  auto &framelist = tags->frameList("APIC");
+  if (framelist.isEmpty())
+    return std::nullopt;
+  auto *pic = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(framelist.front());
+  return pic->picture();
+}
+
+static std::optional<TagLib::ByteVector> Utils::get_album_art(const std::string &filename) {
+  if (not is_supported_file_type(filename))
+    return std::nullopt;
+  else if (filename.ends_with(".flac"))
+    return get_flac_album_art(filename);
+  else  // .mp3
+    return get_mp3_album_art(filename);
+}
+
+static std::optional<int> Utils::insert_metadata(SQLite::Database &db, const TrackMetadata &tm) {
   SQLite::Statement stmt{db, R"--(
       INSERT OR REPLACE INTO t_tracks_metadata (track_id, title, track_num, artist_id, album_id)
       VALUES (?, ?, ?, ?, ?);
@@ -443,4 +513,4 @@ static std::optional<int> Utils::insert_metadata(SQLite::Database& db,
   return tm.track_id;
 }
 
-}  // namespace MusicIndexer::DBOps
+}  // namespace MusicIndexer
