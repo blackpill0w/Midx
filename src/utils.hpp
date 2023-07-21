@@ -44,12 +44,14 @@ class TrackMetadata {
   explicit TrackMetadata(const int track_id, const std::string &title,
                          const std::optional<int> track_number = std::nullopt,
                          const std::optional<int> artist_id    = std::nullopt,
-                         const std::optional<int> album_id     = std::nullopt)
+                         const std::optional<int> album_id     = std::nullopt,
+                         const std::optional<int> album_art_id = std::nullopt)
       : track_id{track_id},
         title{title},
         track_number{track_number},
         artist_id{artist_id},
-        album_id{album_id} {}
+        album_id{album_id},
+        album_art_id{album_art_id} {}
 
  public:
   /**
@@ -72,6 +74,10 @@ class TrackMetadata {
    * Track's album's id.
    */
   const std::optional<int> album_id;
+  /**
+   * Album's art id.
+   */
+  const std::optional<int> album_art_id;
 };
 
 class Track {

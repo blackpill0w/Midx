@@ -10,6 +10,17 @@
 namespace MusicIndexer {
 
 /**
+  The directory where the indexer stores album art and other data.
+  By default it's <b>"~/.local/share/music-indexer"</b>, it's better to modify it
+  to be inside your project's data directory (e.g. <b>"~/.local/share/music-player/indexer-data"</b>).
+
+  Album art is stored in the following manner:
+  - The file name is of the form `artistName_albumName`.
+  - If the artist is inexistant, then the file name is of the form `__albumName`.
+*/
+inline std::string data_dir = ".local/share/music-indexer";
+
+/**
  * Initialise database and tables, this function also enables foreign keys check so it is
  * preferred to call it before any operations are done.
  */
@@ -72,19 +83,9 @@ std::optional<int> insert(SQLite::Database &db, const std::string &str,
 }
 
 /**
- * Remove a music directory, an artist, an album or a track from the database
- * @note The interpretation of the paramaters depends on the function's instance, refer to
- * the relevant function instance's documentation
+ * Remove a music directory from the database
  */
-template<typename T>
-bool remove(SQLite::Database &db, const std::string &str,
-                          [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
-                              std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, Track>();
-  static_assert(valid_type, "------------ ERROR: Invalid DataType to MusicIndexer::remove()\n");
-  return false;
-}
+bool remove_music_dir(SQLite::Database &db, const std::string &path);
 
 /**
  * Recursively scan a directory given its relative or absolute path.

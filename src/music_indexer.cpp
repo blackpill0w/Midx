@@ -346,8 +346,7 @@ std::optional<int> insert<Album>(SQLite::Database &db, const std::string &name,
 template<>
 std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_path,
                                  const std::optional<int> parent_dir_id) {
-  if (not parent_dir_id or
-      (parent_dir_id.has_value() and not is_valid_id<MusicDir>(db, parent_dir_id.value()))) {
+  if (not parent_dir_id or not is_valid_id<MusicDir>(db, parent_dir_id.value())) {
     return std::nullopt;
   }
   const std::string abs_path = fs::canonical(file_path);
@@ -370,17 +369,8 @@ std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_p
   return trk_id;
 }
 
-/**
- * Remove a directory from the database.
- *
- * @param path absolute or relative path to the directory.
- *
- * @return the id of the inserted item if everthing goes correctly, otherwise
- * std::nullopt.
- */
-template<>
-bool remove<MusicDir>(SQLite::Database &db, const std::string &path,
-                                    [[maybe_unused]] const std::optional<int> dummy) {
+bool remove_music_dir(SQLite::Database &db, const std::string &path) {
+  // TODO: return false if path is not in database
   if (not fs::exists(path) or not fs::is_directory(path))
     return false;
   const std::string abs_path = fs::canonical(path);
@@ -449,11 +439,13 @@ static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database &db, c
     album_id                = insert<Album>(db, album, artist_id);
   }
 
+  const std::optional<TagLib::ByteVector> art = get_album_art(file_path);
+
   return TrackMetadata(track_id, title, trk_num, artist_id, album_id);
 }
 
 static std::optional<TagLib::ByteVector> Utils::get_flac_album_art(const std::string &filename) {
-  if (not is_supported_file_type(filename) or filename.ends_with(".flac"))
+  if (not is_supported_file_type(filename) or not filename.ends_with(".flac"))
     return std::nullopt;
 
   TagLib::FLAC::File f{filename.c_str()};
@@ -463,8 +455,9 @@ static std::optional<TagLib::ByteVector> Utils::get_flac_album_art(const std::st
 }
 
 static std::optional<TagLib::ByteVector> Utils::get_mp3_album_art(const std::string &filename) {
-  if (not is_supported_file_type(filename) or filename.ends_with(".mp3"))
+  if (not is_supported_file_type(filename) or not filename.ends_with(".mp3"))
     return std::nullopt;
+
   TagLib::MPEG::File f{filename.c_str()};
   if (not f.isValid() or not f.hasID3v2Tag())
     return std::nullopt;

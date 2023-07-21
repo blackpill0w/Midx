@@ -1,9 +1,41 @@
 var namespaceMusicIndexer =
 [
-    [ "DBOps", "namespaceMusicIndexer_1_1DBOps.html", "namespaceMusicIndexer_1_1DBOps" ],
+    [ "Utils", "namespaceMusicIndexer_1_1Utils.html", [
+      [ "get_album_art", "namespaceMusicIndexer_1_1Utils.html#a84cb3e8b29fa36fd4da9bc834ba8ed79", null ],
+      [ "get_flac_album_art", "namespaceMusicIndexer_1_1Utils.html#a3e5c09089077dfb887186976ff2887bb", null ],
+      [ "get_mp3_album_art", "namespaceMusicIndexer_1_1Utils.html#aab588c4ababc9ba30b9d635ef66fbd65", null ],
+      [ "insert_metadata", "namespaceMusicIndexer_1_1Utils.html#afe0c43200a4a3641ca5df3902f933482", null ],
+      [ "is_supported_file_type", "namespaceMusicIndexer_1_1Utils.html#aacace404e3f968ba267de666d8d4c06e", null ],
+      [ "load_metadata", "namespaceMusicIndexer_1_1Utils.html#a8da1c01bd3f260fd06baa1e00ae93ccd", null ]
+    ] ],
     [ "Album", "classMusicIndexer_1_1Album.html", "classMusicIndexer_1_1Album" ],
     [ "Artist", "classMusicIndexer_1_1Artist.html", "classMusicIndexer_1_1Artist" ],
     [ "MusicDir", "classMusicIndexer_1_1MusicDir.html", "classMusicIndexer_1_1MusicDir" ],
     [ "Track", "classMusicIndexer_1_1Track.html", "classMusicIndexer_1_1Track" ],
-    [ "TrackMetadata", "classMusicIndexer_1_1TrackMetadata.html", "classMusicIndexer_1_1TrackMetadata" ]
+    [ "TrackMetadata", "classMusicIndexer_1_1TrackMetadata.html", "classMusicIndexer_1_1TrackMetadata" ],
+    [ "build_music_library", "namespaceMusicIndexer.html#aba2166a5a92085c5983087e65f805989", null ],
+    [ "get_all", "namespaceMusicIndexer.html#a32f00497247768729d92d1207a64500f", null ],
+    [ "get_all< Album >", "namespaceMusicIndexer.html#a068f5a5a6b0794b4c76ce607ee6387ab", null ],
+    [ "get_all< Artist >", "namespaceMusicIndexer.html#a581cd44bfbfeb0fe317368bdb53d3b23", null ],
+    [ "get_all< MusicDir >", "namespaceMusicIndexer.html#a35354278b20107a710d2eeb1efb3d11f", null ],
+    [ "get_all< Track >", "namespaceMusicIndexer.html#a89eeff82d511c53f916b19903764ee95", null ],
+    [ "get_id", "namespaceMusicIndexer.html#a0797c1bd34ea58556ba8b87a1cb3febe", null ],
+    [ "get_id< Album >", "namespaceMusicIndexer.html#a5638b65370aa27a9331992a7135e8fbf", null ],
+    [ "get_id< Artist >", "namespaceMusicIndexer.html#a8a87b4a3f135316971d9632d9ad8a2cc", null ],
+    [ "get_id< MusicDir >", "namespaceMusicIndexer.html#af03a15a7b1aa23600840bd2e6f06163f", null ],
+    [ "get_id< Track >", "namespaceMusicIndexer.html#a05d42b7aa6e12424ee7f5b86e242a4c1", null ],
+    [ "init_database", "namespaceMusicIndexer.html#a92dcb2424edccaf72c64a83b0bd040d0", null ],
+    [ "insert", "namespaceMusicIndexer.html#a20e35392deb6712a6ad720791208056d", null ],
+    [ "insert< Album >", "namespaceMusicIndexer.html#aea901f1f974cb6d20ce3b49553816ffa", null ],
+    [ "insert< Artist >", "namespaceMusicIndexer.html#a9400df822cf136e8cb818b0c45995509", null ],
+    [ "insert< MusicDir >", "namespaceMusicIndexer.html#aeccbff8847452c679e67090e4c664f4c", null ],
+    [ "insert< Track >", "namespaceMusicIndexer.html#ad26e0e9b05f5f90eebd9bd40a8dbbf96", null ],
+    [ "is_valid_id", "namespaceMusicIndexer.html#a5d94c2e99065911c688fad2ad396480a", null ],
+    [ "is_valid_id< Album >", "namespaceMusicIndexer.html#ab68d71296fae16e1931bab8803497670", null ],
+    [ "is_valid_id< Artist >", "namespaceMusicIndexer.html#ae32943daa79c2f7b79f011f81ff4f2f1", null ],
+    [ "is_valid_id< MusicDir >", "namespaceMusicIndexer.html#a84f6491b752a718904bd5790f745fe43", null ],
+    [ "is_valid_id< Track >", "namespaceMusicIndexer.html#ac18e1f51ae43305e4819ffedb6c6509a", null ],
+    [ "remove_music_dir", "namespaceMusicIndexer.html#a9e5dab4819222de9a6ba2912f947f846", null ],
+    [ "scan_directory", "namespaceMusicIndexer.html#a9a2fec5c08d62dd4d0d2543531852028", null ],
+    [ "data_dir", "namespaceMusicIndexer.html#a72f53454b83d1d1ca0b4a423abcd10ee", null ]
 ];

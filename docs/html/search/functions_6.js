@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scan_5fdirectory_0',['scan_directory',['../namespaceMusicIndexer_1_1DBOps.html#ab195a4449ed6e63dcd87c51938e62808',1,'MusicIndexer::DBOps']]]
+  ['remove_5fmusic_5fdir_0',['remove_music_dir',['../namespaceMusicIndexer.html#a9e5dab4819222de9a6ba2912f947f846',1,'MusicIndexer']]]
 ];

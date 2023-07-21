@@ -12,5 +12,5 @@ int main(int argc, const char *argv[]) {
 
   MI::insert<MI::MusicDir>(db, "/home/blackpill0w/Music/");
 
-  MI::remove<MI::MusicDir>(db, "/home/blackpill0w/Music/");
+  MI::remove_music_dir(db, "/home/blackpill0w/Music/");
 }

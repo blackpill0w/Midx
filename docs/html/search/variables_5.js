@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['title_0',['title',['../classMusicIndexer_1_1TrackMetadata.html#a9bec277490a27352b4654777cbb51c69',1,'MusicIndexer::TrackMetadata']]],
-  ['track_5fid_1',['track_id',['../classMusicIndexer_1_1TrackMetadata.html#ad5631840fe23df30b9796c8b51af7237',1,'MusicIndexer::TrackMetadata']]],
-  ['track_5fnumber_2',['track_number',['../classMusicIndexer_1_1TrackMetadata.html#a8032638807405fef19c4639dd0085c5b',1,'MusicIndexer::TrackMetadata']]]
+  ['parent_5fdir_5fid_0',['parent_dir_id',['../classMusicIndexer_1_1Track.html#afe41aee516326781cc753a8de390d264',1,'MusicIndexer::Track']]],
+  ['path_1',['path',['../classMusicIndexer_1_1MusicDir.html#ae00ea388078cf22233b85697ce48e91e',1,'MusicIndexer::MusicDir']]]
 ];

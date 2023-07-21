@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['dbops_2ecpp_0',['dbops.cpp',['../dbops_8cpp.html',1,'']]],
-  ['dbops_2ehpp_1',['dbops.hpp',['../dbops_8hpp.html',1,'']]]
+  ['data_5fdir_0',['data_dir',['../namespaceMusicIndexer.html#a72f53454b83d1d1ca0b4a423abcd10ee',1,'MusicIndexer']]]
 ];
