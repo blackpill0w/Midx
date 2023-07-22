@@ -1,5 +1,6 @@
 compile_commands.json
 music_library.sqlite
+music_library.sqlite-journal
 *.bak
 .vscode
 build*

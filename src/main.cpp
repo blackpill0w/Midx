@@ -10,7 +10,10 @@ int main(int argc, const char *argv[]) {
                       SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
   MI::init_database(db);
 
-  MI::insert<MI::MusicDir>(db, "/home/blackpill0w/Music/");
+  //MI::insert<MI::MusicDir>(db, "/home/blackpill0w/Music");
+  //MI::build_music_library(db);
 
-  MI::remove_music_dir(db, "/home/blackpill0w/Music/");
+  std::cout << "\t\t--------------------\n";
+
+  MI::remove_music_dir(db, "/home/blackpill0w/Music");
 }

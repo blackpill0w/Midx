@@ -3,6 +3,8 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <cstdlib>
+
 #include <SQLiteCpp/SQLiteCpp.h>
 
 #include "./utils.hpp"
@@ -12,13 +14,14 @@ namespace MusicIndexer {
 /**
   The directory where the indexer stores album art and other data.
   By default it's <b>"~/.local/share/music-indexer"</b>, it's better to modify it
-  to be inside your project's data directory (e.g. <b>"~/.local/share/music-player/indexer-data"</b>).
+  to be inside your project's data directory (e.g.
+  <b>"~/.local/share/music-player/indexer-data"</b>).
 
   Album art is stored in the following manner:
   - The file name is of the form `artistName_albumName`.
   - If the artist is inexistant, then the file name is of the form `__albumName`.
 */
-inline std::string data_dir = ".local/share/music-indexer";
+inline std::string data_dir = std::string(getenv("HOME")) + "/.local/share/music-indexer";
 
 /**
  * Initialise database and tables, this function also enables foreign keys check so it is
@@ -81,6 +84,16 @@ std::optional<int> insert(SQLite::Database &db, const std::string &str,
   static_assert(valid_type, "------------ ERROR: Invalid DataType to MusicIndexer::insert()\n");
   return std::nullopt;
 }
+
+/**
+  Delete a track (and its metadata) from the database.
+*/
+bool remove_track(SQLite::Database &db, const int track_id);
+
+/**
+  Get ids of tracks inside (and bound to) a certain music directory.
+*/
+std::vector<int> get_ids_of_tracks_of_music_dir(SQLite::Database &db, const int mdir_id);
 
 /**
  * Remove a music directory from the database

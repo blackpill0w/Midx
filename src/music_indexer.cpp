@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <ranges>
+#include <string>
 #include <vector>
 
 #include <SQLiteCpp/SQLiteCpp.h>
@@ -58,6 +59,9 @@ static std::optional<int> insert_metadata(SQLite::Database &db, const TrackMetad
 }  // namespace Utils
 
 void init_database(SQLite::Database &db) {
+  if (not fs::exists(data_dir)) {
+    fs::create_directory(data_dir);
+  }
   try {
     db.exec("PRAGMA foreign_keys = ON;");
     // Create music directiries table
@@ -163,18 +167,33 @@ std::vector<Album> get_all<Album>(SQLite::Database &db) {
 }
 
 /**
- * Get all the tracks.
+ * Get all the tracks and their metadata if it exists.
  */
 template<>
 std::vector<Track> get_all<Track>(SQLite::Database &db) {
   std::vector<Track> res{};
 
-  SQLite::Statement stmt{db, "SELECT id, file_path, parent_dir_id FROM t_tracks"};
+  SQLite::Statement stmt{db, R"--(
+    SELECT id, file_path, parent_dir_id, title, track_num, artist_id, album_id
+    FROM t_tracks
+    LEFT JOIN t_tracks_metadata ON t_tracks.id = t_track_metadata.id
+  )--"};
   while (stmt.executeStep()) {
     const int id = stmt.getColumn(0);
     const std::string file_path{stmt.getColumn(1).getString()};
     const int parent_dir_id = stmt.getColumn(2);
     res.emplace_back(Track{id, file_path, parent_dir_id});
+    // Get metadata
+    auto title = stmt.isColumnNull(3) ? std::nullopt
+                                      : std::optional<std::string>(stmt.getColumn(3).getString());
+    auto track_num =
+        stmt.isColumnNull(4) ? std::nullopt : std::optional<int>(stmt.getColumn(4).getInt());
+    auto artist_id =
+        stmt.isColumnNull(5) ? std::nullopt : std::optional<int>(stmt.getColumn(5).getInt());
+    auto album_id =
+        stmt.isColumnNull(6) ? std::nullopt : std::optional<int>(stmt.getColumn(6).getInt());
+
+    res.back().update_metadata(TrackMetadata{id, title.value(), track_num, artist_id, album_id});
   }
   return res;
 }
@@ -362,20 +381,70 @@ std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_p
   const std::optional<int> trk_id = get_id<Track>(db, abs_path);
   // Metadata
   std::optional<TrackMetadata> tm = Utils::load_metadata(db, trk_id.value(), file_path);
-  if (not tm.has_value())
-    return trk_id;
-  Utils::insert_metadata(db, tm.value());
+  if (tm.has_value())
+    Utils::insert_metadata(db, tm.value());
 
   return trk_id;
+}
+
+bool remove_track(SQLite::Database &db, const int track_id) {
+  SQLite::Statement del_metadata_stmt{db, "DELETE FROM t_tracks_metadata WHERE track_id = ?"};
+  SQLite::Statement stmt{db, "DELETE FROM t_tracks WHERE id = ?"};
+
+  del_metadata_stmt.bind(1, track_id);
+  stmt.bind(1, track_id);
+
+  del_metadata_stmt.exec();
+  stmt.exec();
+
+  return true;
+}
+
+std::vector<int> get_ids_of_tracks_of_music_dir(SQLite::Database &db, const int mdir_id) {
+  std::vector<int> res{};
+  SQLite::Statement stmt{db, R"--(
+    SELECT t_tracks.id FROM t_tracks
+    JOIN t_music_dirs ON t_tracks.parent_dir_id = t_music_dirs.id
+    WHERE t_music_dirs.id = ?;
+  )--"};
+  stmt.bind(1, mdir_id);
+  while (stmt.executeStep()) {
+    res.push_back(stmt.getColumn(0).getInt());
+  }
+  return res;
 }
 
 bool remove_music_dir(SQLite::Database &db, const std::string &path) {
   // TODO: return false if path is not in database
   if (not fs::exists(path) or not fs::is_directory(path))
     return false;
-  const std::string abs_path = fs::canonical(path);
-  SQLite::Statement stmt{db, "DELETE FROM t_music_dirs WHERE path = ?"};
-  stmt.bindNoCopy(1, abs_path);
+  const std::string abs_path      = fs::canonical(path);
+  const std::optional<int> dir_id = get_id<MusicDir>(db, abs_path);
+
+  SQLite::Statement del_tracks_metadata_stmt = {db, R"--(
+    DELETE FROM t_tracks_metadata
+    WHERE track_id in (
+      SELECT track_id FROM t_tracks_metadata
+      JOIN t_tracks ON t_tracks.id = t_tracks_metadata.track_id
+      JOIN t_music_dirs ON t_music_dirs.id = t_tracks.parent_dir_id
+      WHERE t_music_dirs.id = ?)
+  )--"};
+  del_tracks_metadata_stmt.bind(1, dir_id.value());
+
+  SQLite::Statement del_tracks_stmt = {db, R"--(
+    DELETE FROM t_tracks
+    WHERE t_tracks.id IN (
+      SELECT t_tracks.id FROM t_tracks
+      JOIN t_music_dirs ON t_music_dirs.id = t_tracks.parent_dir_id
+      WHERE t_music_dirs.id = ?)
+  )--"};
+  del_tracks_stmt.bind(1, dir_id.value());
+
+  SQLite::Statement stmt{db, "DELETE FROM t_music_dirs WHERE id = ?"};
+  stmt.bind(1, dir_id.value());
+
+  del_tracks_metadata_stmt.exec();
+  del_tracks_stmt.exec();
   stmt.exec();
   return true;
 }
@@ -386,9 +455,12 @@ std::optional<int> scan_directory(SQLite::Database &db, const std::string &path)
     return std::nullopt;
   }
   const std::optional<int> id = insert<MusicDir>(db, abs_path);
+  int i                       = 1;
   for (const auto &dir_entry : fs::recursive_directory_iterator(abs_path)) {
     if (dir_entry.is_regular_file() && Utils::is_supported_file_type(dir_entry.path())) {
       insert<Track>(db, dir_entry.path(), id);
+      std::cout << i << " - INSERTED: " << dir_entry.path() << "\n";
+      ++i;
     }
   }
   return id;
@@ -436,10 +508,20 @@ static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database &db, c
   std::optional<int> album_id = std::nullopt;
   if (not fref.tag()->album().isEmpty()) {
     const std::string album = fref.tag()->album().to8Bit(true);
-    album_id                = insert<Album>(db, album, artist_id);
-  }
 
-  const std::optional<TagLib::ByteVector> art = get_album_art(file_path);
+    album_id = insert<Album>(db, album, artist_id);
+  }
+  // Extract album art
+  const std::string album_art_filename = data_dir + "/" + std::to_string(album_id.value());
+  if (album_id.has_value() and not fs::exists(album_art_filename)) {
+    std::optional<TagLib::ByteVector> pic = get_album_art(file_path);
+    if (pic.has_value()) {
+      std::ofstream album_art_file{album_art_filename};
+      for (auto b : pic.value()) {
+        album_art_file << b;
+      }
+    }
+  }
 
   return TrackMetadata(track_id, title, trk_num, artist_id, album_id);
 }
@@ -484,7 +566,10 @@ static std::optional<int> Utils::insert_metadata(SQLite::Database &db, const Tra
       VALUES (?, ?, ?, ?, ?);
   )--"};
   stmt.bind(1, tm.track_id);
-  stmt.bindNoCopy(2, tm.title);
+  if (tm.title.empty())
+    stmt.bind(2);
+  else
+    stmt.bindNoCopy(2, tm.title);
 
   if (tm.track_number.has_value())
     stmt.bind(3, tm.track_number.value());

@@ -13,5 +13,5 @@ If you have [nix](https://github.com/NixOS/nix) installed remove the `-DBUILD_WI
 and start a `nix-shell` before running cmake.
 ```
 # TODO
-- Make it cross platform
-- Indexing cover art.
+- Testing.
+- Make it cross platform.
