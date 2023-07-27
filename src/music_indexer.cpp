@@ -112,7 +112,7 @@ void init_database(SQLite::Database &db) {
       );
     )--");
   } catch (SQLite::Exception &e) {
-    std::cerr << "Error initialising databases: " << e.what() << "\n";
+    std::cerr << "Error initialising the databases: " << e.what() << "\n";
     std::cerr << "Code: " << e.getErrorCode();
     std::cerr << "Query: " << e.getErrorStr() << "\n";
     exit(1);
@@ -144,7 +144,7 @@ std::vector<Artist> get_all<Artist>(SQLite::Database &db) {
   while (stmt.executeStep()) {
     const int id = stmt.getColumn(0);
     const std::string artist_name{stmt.getColumn(1).getString()};
-    res.emplace_back(Artist{std::move(artist_name), id});
+    res.emplace_back(Artist{id, std::move(artist_name)});
   }
   return res;
 }
@@ -184,8 +184,7 @@ std::vector<Track> get_all<Track>(SQLite::Database &db) {
     const int parent_dir_id = stmt.getColumn(2);
     res.emplace_back(Track{id, file_path, parent_dir_id});
     // Get metadata
-    auto title = stmt.isColumnNull(3) ? std::nullopt
-                                      : std::optional<std::string>(stmt.getColumn(3).getString());
+    auto title = stmt.getColumn(3).getString();
     auto track_num =
         stmt.isColumnNull(4) ? std::nullopt : std::optional<int>(stmt.getColumn(4).getInt());
     auto artist_id =
@@ -193,9 +192,47 @@ std::vector<Track> get_all<Track>(SQLite::Database &db) {
     auto album_id =
         stmt.isColumnNull(6) ? std::nullopt : std::optional<int>(stmt.getColumn(6).getInt());
 
-    res.back().update_metadata(TrackMetadata{id, title.value(), track_num, artist_id, album_id});
+    res.back().update_metadata(TrackMetadata{id, std::move(title), track_num, artist_id, album_id});
   }
   return res;
+}
+
+template<>
+std::optional<Artist> get(SQLite::Database &db, const int id) {
+  SQLite::Statement stmt{db, "SELECT id, name FROM t_artists WHERE id = ?"};
+  stmt.bind(1, id);
+  if (not stmt.executeStep()) {
+    return std::nullopt;
+  }
+  return Artist{stmt.getColumn(0).getInt(), stmt.getColumn(1).getString()};
+}
+
+template<>
+std::optional<Album> get(SQLite::Database &db, const int id) {
+  SQLite::Statement stmt{db, "SELECT id, name, artist_id FROM t_albums WHERE id = ?"};
+  stmt.bind(1, id);
+  if (not stmt.executeStep()) {
+    return std::nullopt;
+  }
+  return Album{
+      stmt.getColumn(1).getString(), stmt.getColumn(0).getInt(),
+      stmt.isColumnNull(2) ? std::nullopt : std::optional<int>{stmt.getColumn(2).getInt()}};
+}
+
+template<>
+std::optional<TrackMetadata> get(SQLite::Database &db, const int id) {
+  SQLite::Statement stmt{
+      db,
+      "SELECT track_id, title, track_num, artist_id, album_id FROM t_tracks_metadata WHERE id = ?"};
+  stmt.bind(1, id);
+  if (not stmt.executeStep()) {
+    return std::nullopt;
+  }
+  return TrackMetadata{
+      stmt.getColumn(0).getInt(), stmt.getColumn(1).getString(),
+      stmt.isColumnNull(2) ? std::nullopt : std::optional<int>{stmt.getColumn(2).getInt()},
+      stmt.isColumnNull(3) ? std::nullopt : std::optional<int>{stmt.getColumn(3).getInt()},
+      stmt.isColumnNull(4) ? std::nullopt : std::optional<int>{stmt.getColumn(4).getInt()}};
 }
 
 template<>
@@ -352,8 +389,7 @@ std::optional<int> insert<Album>(SQLite::Database &db, const std::string &name,
 }
 
 /**
- * Adds an track to the database. If it already exists in the database,
- * the metadata is updated if needed.
+ * Adds a track to the database. If it already exists, the metadata is updated if needed.
  *
  * @param file_path absolute or relative path to the track's file.
  *
@@ -372,9 +408,8 @@ std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_p
   if (not fs::exists(abs_path) or not fs::is_regular_file(abs_path)) {
     return std::nullopt;
   }
-  SQLite::Statement stmt{db,
-                         "INSERT OR IGNORE INTO t_tracks (id, file_path, parent_dir_id) "
-                         "VALUES (NULL, ?, ?)"};
+  SQLite::Statement stmt{
+      db, "INSERT OR IGNORE INTO t_tracks (id, file_path, parent_dir_id) VALUES (NULL, ?, ?)"};
   stmt.bindNoCopy(1, abs_path);
   stmt.bind(2, parent_dir_id.value());
   stmt.exec();
@@ -473,7 +508,7 @@ void build_music_library(SQLite::Database &db) {
 }
 
 /******************************************************************************/
-/***************************--| Static Functions |--***************************/
+/************************** --| Static Functions |-- **************************/
 /******************************************************************************/
 
 static bool Utils::is_supported_file_type(const std::string &path) {

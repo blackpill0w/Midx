@@ -37,6 +37,17 @@ std::vector<T> get_all(SQLite::Database &db) {
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
                               std::is_convertible<T, Track>();
+  static_assert(valid_type, "Invalid DataType to MusicIndexer::get_all()\n");
+  return {};
+}
+
+/**
+  Get data related to an artist, album or track's metadata given its id.
+*/
+template<typename T>
+std::optional<T> get(SQLite::Database &db, const int id) {
+  constexpr bool valid_type = std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
+                              std::is_convertible<T, TrackMetadata>();
   static_assert(valid_type, "Invalid DataType to MusicIndexer::get()\n");
   return {};
 }
@@ -81,7 +92,7 @@ std::optional<int> insert(SQLite::Database &db, const std::string &str,
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
                               std::is_convertible<T, Track>();
-  static_assert(valid_type, "------------ ERROR: Invalid DataType to MusicIndexer::insert()\n");
+  static_assert(valid_type, "------------ ERROR: Invalid data type to MusicIndexer::insert()\n");
   return std::nullopt;
 }
 

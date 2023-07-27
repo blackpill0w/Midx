@@ -8,7 +8,7 @@ namespace MusicIndexer {
 
 class MusicDir {
  public:
-  MusicDir(const std::string &path, const int id) : id{id}, path{path} {}
+  MusicDir(const std::string &path_, const int id_) : id{id_}, path{path_} {}
 
  public:
   const int id;
@@ -17,7 +17,7 @@ class MusicDir {
 
 class Artist {
  public:
-  Artist(const std::string &name, const int id) : id{id}, name{name} {}
+  Artist(const int id_, const std::string &name_) : id{id_}, name{name_} {}
 
  public:
   const int id;
@@ -26,8 +26,8 @@ class Artist {
 
 class Album {
  public:
-  Album(const std::string &name, const int id, const std::optional<int> artist_id = std::nullopt)
-      : id{id}, name{name}, artist_id{artist_id} {}
+  Album(const std::string &name_, const int id_, const std::optional<int> artist_id_ = std::nullopt)
+      : id{id_}, name{name_}, artist_id{artist_id_} {}
 
  public:
   const int id;
@@ -41,15 +41,15 @@ class Album {
 class TrackMetadata {
  public:
   TrackMetadata(const TrackMetadata &other) = default;
-  explicit TrackMetadata(const int track_id, const std::string &title,
-                         const std::optional<int> track_number = std::nullopt,
-                         const std::optional<int> artist_id    = std::nullopt,
-                         const std::optional<int> album_id     = std::nullopt)
-      : track_id{track_id},
-        title{title},
-        track_number{track_number},
-        artist_id{artist_id},
-        album_id{album_id} {}
+  explicit TrackMetadata(const int track_id_, const std::string &title_,
+                         const std::optional<int> track_number_ = std::nullopt,
+                         const std::optional<int> artist_id_    = std::nullopt,
+                         const std::optional<int> album_id_     = std::nullopt)
+      : track_id{track_id_},
+        title{title_},
+        track_number{track_number_},
+        artist_id{artist_id_},
+        album_id{album_id_} {}
 
  public:
   /**
@@ -80,10 +80,12 @@ class Track {
    * The constructor, it does not initialise the `metadata` field, call
    * `Track::update_metadata()` for that.
    */
-  Track(const int id, const std::string &file_path, const int parent_dir_id)
-      : id{id}, file_path{file_path}, parent_dir_id{parent_dir_id} {}
-  const std::optional<TrackMetadata> get_metadata() const { return m_metadata; }
-  void update_metadata(const TrackMetadata &metadata) { m_metadata.emplace(metadata); }
+  Track(const int id_, const std::string &file_path_, const int parent_dir_id_)
+      : id{id_}, file_path{file_path_}, parent_dir_id{parent_dir_id_} {}
+
+  const std::optional<TrackMetadata> &get_metadata() const { return m_metadata; }
+
+  void update_metadata(const TrackMetadata &metadata_) { m_metadata.emplace(metadata_); }
 
  public:
   const int id;

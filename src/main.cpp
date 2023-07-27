@@ -5,7 +5,7 @@
 
 namespace MI = MusicIndexer;
 
-int main(int argc, const char *argv[]) {
+int main() {
   SQLite::Database db{"../music_library.sqlite",
                       SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
   MI::init_database(db);
