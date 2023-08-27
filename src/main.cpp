@@ -1,19 +1,17 @@
 #include <iostream>
-#include <fstream>
+#include <SQLiteCpp/SQLiteCpp.h>
 
 #include "./music_indexer.hpp"
 
-namespace MI = MusicIndexer;
+using namespace MusicIndexer;
 
 int main() {
-  SQLite::Database db{"../music_library.sqlite",
-                      SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
-  MI::init_database(db);
+  SQLite::Database correct_db{ "/tmp/correct_db.sqlite", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE };
+  SQLite::Database testing_db{ "/tmp/testing_db.sqlite", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE };
 
-  //MI::insert<MI::MusicDir>(db, "/home/blackpill0w/Music");
-  //MI::build_music_library(db);
+  MusicIndexer::init_database(correct_db);
+  MusicIndexer::init_database(testing_db);
 
-  std::cout << "\t\t--------------------\n";
-
-  MI::remove_music_dir(db, "/home/blackpill0w/Music");
+  correct_db.exec("INSERT OR IGNORE INTO t_music_dirs VALUES (NULL, '/home/blackpill0w/Code/c_c++/Music-Indexer/music_for_testing')");
+  insert<MusicDir>(testing_db, "/home/blackpill0w/Code/c_c++/Music-Indexer/music_for_testing");
 }

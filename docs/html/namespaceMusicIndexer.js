@@ -14,6 +14,10 @@ var namespaceMusicIndexer =
     [ "Track", "classMusicIndexer_1_1Track.html", "classMusicIndexer_1_1Track" ],
     [ "TrackMetadata", "classMusicIndexer_1_1TrackMetadata.html", "classMusicIndexer_1_1TrackMetadata" ],
     [ "build_music_library", "namespaceMusicIndexer.html#aba2166a5a92085c5983087e65f805989", null ],
+    [ "get", "namespaceMusicIndexer.html#a9b2602ac52bd399b1ae89b2a12bb7326", null ],
+    [ "get", "namespaceMusicIndexer.html#ac8b1458a2b470e933e08f11eaafc0636", null ],
+    [ "get", "namespaceMusicIndexer.html#addbce032f572c99b638e1e2d6fdada58", null ],
+    [ "get", "namespaceMusicIndexer.html#a0fde8ec1b762094f0eb0823fe056c631", null ],
     [ "get_all", "namespaceMusicIndexer.html#a32f00497247768729d92d1207a64500f", null ],
     [ "get_all< Album >", "namespaceMusicIndexer.html#a068f5a5a6b0794b4c76ce607ee6387ab", null ],
     [ "get_all< Artist >", "namespaceMusicIndexer.html#a581cd44bfbfeb0fe317368bdb53d3b23", null ],
@@ -24,6 +28,7 @@ var namespaceMusicIndexer =
     [ "get_id< Artist >", "namespaceMusicIndexer.html#a8a87b4a3f135316971d9632d9ad8a2cc", null ],
     [ "get_id< MusicDir >", "namespaceMusicIndexer.html#af03a15a7b1aa23600840bd2e6f06163f", null ],
     [ "get_id< Track >", "namespaceMusicIndexer.html#a05d42b7aa6e12424ee7f5b86e242a4c1", null ],
+    [ "get_ids_of_tracks_of_music_dir", "namespaceMusicIndexer.html#abebd40c338356cf67fdf578c244fa3d0", null ],
     [ "init_database", "namespaceMusicIndexer.html#a92dcb2424edccaf72c64a83b0bd040d0", null ],
     [ "insert", "namespaceMusicIndexer.html#a20e35392deb6712a6ad720791208056d", null ],
     [ "insert< Album >", "namespaceMusicIndexer.html#aea901f1f974cb6d20ce3b49553816ffa", null ],
@@ -36,6 +41,7 @@ var namespaceMusicIndexer =
     [ "is_valid_id< MusicDir >", "namespaceMusicIndexer.html#a84f6491b752a718904bd5790f745fe43", null ],
     [ "is_valid_id< Track >", "namespaceMusicIndexer.html#ac18e1f51ae43305e4819ffedb6c6509a", null ],
     [ "remove_music_dir", "namespaceMusicIndexer.html#a9e5dab4819222de9a6ba2912f947f846", null ],
+    [ "remove_track", "namespaceMusicIndexer.html#a295cc39368126ea246072f82f770da99", null ],
     [ "scan_directory", "namespaceMusicIndexer.html#a9a2fec5c08d62dd4d0d2543531852028", null ],
     [ "data_dir", "namespaceMusicIndexer.html#a72f53454b83d1d1ca0b4a423abcd10ee", null ]
 ];

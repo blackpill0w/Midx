@@ -1,6 +1,9 @@
 var music__indexer_8cpp =
 [
     [ "build_music_library", "music__indexer_8cpp.html#aba2166a5a92085c5983087e65f805989", null ],
+    [ "get", "music__indexer_8cpp.html#a9b2602ac52bd399b1ae89b2a12bb7326", null ],
+    [ "get", "music__indexer_8cpp.html#ac8b1458a2b470e933e08f11eaafc0636", null ],
+    [ "get", "music__indexer_8cpp.html#addbce032f572c99b638e1e2d6fdada58", null ],
     [ "get_album_art", "music__indexer_8cpp.html#a84cb3e8b29fa36fd4da9bc834ba8ed79", null ],
     [ "get_all< Album >", "music__indexer_8cpp.html#a068f5a5a6b0794b4c76ce607ee6387ab", null ],
     [ "get_all< Artist >", "music__indexer_8cpp.html#a581cd44bfbfeb0fe317368bdb53d3b23", null ],
@@ -11,6 +14,7 @@ var music__indexer_8cpp =
     [ "get_id< Artist >", "music__indexer_8cpp.html#a8a87b4a3f135316971d9632d9ad8a2cc", null ],
     [ "get_id< MusicDir >", "music__indexer_8cpp.html#af03a15a7b1aa23600840bd2e6f06163f", null ],
     [ "get_id< Track >", "music__indexer_8cpp.html#a05d42b7aa6e12424ee7f5b86e242a4c1", null ],
+    [ "get_ids_of_tracks_of_music_dir", "music__indexer_8cpp.html#abebd40c338356cf67fdf578c244fa3d0", null ],
     [ "get_mp3_album_art", "music__indexer_8cpp.html#aab588c4ababc9ba30b9d635ef66fbd65", null ],
     [ "init_database", "music__indexer_8cpp.html#a92dcb2424edccaf72c64a83b0bd040d0", null ],
     [ "insert< Album >", "music__indexer_8cpp.html#aea901f1f974cb6d20ce3b49553816ffa", null ],
@@ -25,5 +29,6 @@ var music__indexer_8cpp =
     [ "is_valid_id< Track >", "music__indexer_8cpp.html#ac18e1f51ae43305e4819ffedb6c6509a", null ],
     [ "load_metadata", "music__indexer_8cpp.html#a8da1c01bd3f260fd06baa1e00ae93ccd", null ],
     [ "remove_music_dir", "music__indexer_8cpp.html#a9e5dab4819222de9a6ba2912f947f846", null ],
+    [ "remove_track", "music__indexer_8cpp.html#a295cc39368126ea246072f82f770da99", null ],
     [ "scan_directory", "music__indexer_8cpp.html#a9a2fec5c08d62dd4d0d2543531852028", null ]
 ];

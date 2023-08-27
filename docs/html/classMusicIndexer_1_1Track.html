@@ -111,16 +111,16 @@ $(document).ready(function(){initNavTree('classMusicIndexer_1_1Track.html',''); 
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="utils_8hpp_source.html">utils.hpp</a>&gt;</code></p>
+<p><code>#include &lt;utils.hpp&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2fa24197ec019875e950cb3fbe931eb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#a2fa24197ec019875e950cb3fbe931eb3">Track</a> (const int <a class="el" href="classMusicIndexer_1_1Track.html#a3c26c080eb000de84359d13ecf45bd51">id</a>, const std::string &amp;<a class="el" href="classMusicIndexer_1_1Track.html#a42354f1949c0e516b1b90f644c4944c5">file_path</a>, const int <a class="el" href="classMusicIndexer_1_1Track.html#afe41aee516326781cc753a8de390d264">parent_dir_id</a>)</td></tr>
-<tr class="separator:a2fa24197ec019875e950cb3fbe931eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31058e1eb4dfc17e73292d40532b4462"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#a31058e1eb4dfc17e73292d40532b4462">get_metadata</a> () const</td></tr>
-<tr class="separator:a31058e1eb4dfc17e73292d40532b4462"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8393653b25e485a1003578a0ddf0b05d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#a8393653b25e485a1003578a0ddf0b05d">update_metadata</a> (const <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &amp;metadata)</td></tr>
-<tr class="separator:a8393653b25e485a1003578a0ddf0b05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adefd92c3057df4a51531b95e0d9d48b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#adefd92c3057df4a51531b95e0d9d48b9">Track</a> (const int id_, const std::string &amp;file_path_, const int parent_dir_id_)</td></tr>
+<tr class="separator:adefd92c3057df4a51531b95e0d9d48b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91f3ca2740af22fbf1e0126357282b1d"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#a91f3ca2740af22fbf1e0126357282b1d">get_metadata</a> () const</td></tr>
+<tr class="separator:a91f3ca2740af22fbf1e0126357282b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdc44136a70179813784dccf1691a806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMusicIndexer_1_1Track.html#acdc44136a70179813784dccf1691a806">update_metadata</a> (const <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &amp;metadata_)</td></tr>
+<tr class="separator:acdc44136a70179813784dccf1691a806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -132,8 +132,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:afe41aee516326781cc753a8de390d264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2fa24197ec019875e950cb3fbe931eb3" name="a2fa24197ec019875e950cb3fbe931eb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fa24197ec019875e950cb3fbe931eb3">&#9670;&#160;</a></span>Track()</h2>
+<a id="adefd92c3057df4a51531b95e0d9d48b9" name="adefd92c3057df4a51531b95e0d9d48b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adefd92c3057df4a51531b95e0d9d48b9">&#9670;&#160;</a></span>Track()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,19 +145,19 @@ Public Attributes</h2></td></tr>
           <td class="memname">MusicIndexer::Track::Track </td>
           <td>(</td>
           <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
+          <td class="paramname"><em>id_</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file_path</em>, </td>
+          <td class="paramname"><em>file_path_</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>parent_dir_id</em>&#160;</td>
+          <td class="paramname"><em>parent_dir_id_</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -171,13 +171,13 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The constructor, it does not initialise the <code>metadata</code> field, call <code><a class="el" href="classMusicIndexer_1_1Track.html#a8393653b25e485a1003578a0ddf0b05d">Track::update_metadata()</a></code> for that. </p>
+<p>The constructor, it does not initialise the <code>metadata</code> field, call <code><a class="el" href="classMusicIndexer_1_1Track.html#acdc44136a70179813784dccf1691a806">Track::update_metadata()</a></code> for that. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a31058e1eb4dfc17e73292d40532b4462" name="a31058e1eb4dfc17e73292d40532b4462"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31058e1eb4dfc17e73292d40532b4462">&#9670;&#160;</a></span>get_metadata()</h2>
+<a id="a91f3ca2740af22fbf1e0126357282b1d" name="a91f3ca2740af22fbf1e0126357282b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f3ca2740af22fbf1e0126357282b1d">&#9670;&#160;</a></span>get_metadata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +186,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt; MusicIndexer::Track::get_metadata </td>
+          <td class="memname">const std::optional&lt; <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &gt; &amp; MusicIndexer::Track::get_metadata </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -201,8 +201,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8393653b25e485a1003578a0ddf0b05d" name="a8393653b25e485a1003578a0ddf0b05d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8393653b25e485a1003578a0ddf0b05d">&#9670;&#160;</a></span>update_metadata()</h2>
+<a id="acdc44136a70179813784dccf1691a806" name="acdc44136a70179813784dccf1691a806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdc44136a70179813784dccf1691a806">&#9670;&#160;</a></span>update_metadata()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +214,7 @@ Public Attributes</h2></td></tr>
           <td class="memname">void MusicIndexer::Track::update_metadata </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classMusicIndexer_1_1TrackMetadata.html">TrackMetadata</a> &amp;&#160;</td>
-          <td class="paramname"><em>metadata</em></td><td>)</td>
+          <td class="paramname"><em>metadata_</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -271,7 +271,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/blackpill0w/Code/c_c++/Music-Indexer/src/<a class="el" href="utils_8hpp_source.html">utils.hpp</a></li>
+<li>/home/blackpill0w/Code/c_c++/Music-Indexer/src/<a class="el" href="utils_8hpp.html">utils.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -113,11 +113,10 @@ $(document).ready(function(){initNavTree('music__indexer_8hpp.html',''); initRes
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;SQLiteCpp/SQLiteCpp.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="utils_8hpp_source.html">./utils.hpp</a>&quot;</code><br />
-</div>
-<p><a href="music__indexer_8hpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+<code>#include &quot;<a class="el" href="utils_8hpp.html">./utils.hpp</a>&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceMusicIndexer"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html">MusicIndexer</a></td></tr>
@@ -130,6 +129,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a32f00497247768729d92d1207a64500f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a32f00497247768729d92d1207a64500f"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a32f00497247768729d92d1207a64500f">MusicIndexer::get_all</a> (SQLite::Database &amp;db)</td></tr>
 <tr class="separator:a32f00497247768729d92d1207a64500f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fde8ec1b762094f0eb0823fe056c631"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0fde8ec1b762094f0eb0823fe056c631"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a0fde8ec1b762094f0eb0823fe056c631">MusicIndexer::get</a> (SQLite::Database &amp;db, const int id)</td></tr>
+<tr class="separator:a0fde8ec1b762094f0eb0823fe056c631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d94c2e99065911c688fad2ad396480a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5d94c2e99065911c688fad2ad396480a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a5d94c2e99065911c688fad2ad396480a">MusicIndexer::is_valid_id</a> (SQLite::Database &amp;db, const int id)</td></tr>
 <tr class="separator:a5d94c2e99065911c688fad2ad396480a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +141,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a20e35392deb6712a6ad720791208056d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a20e35392deb6712a6ad720791208056d"><td class="memTemplItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a20e35392deb6712a6ad720791208056d">MusicIndexer::insert</a> (SQLite::Database &amp;db, const std::string &amp;str, const std::optional&lt; int &gt; dummy=std::nullopt)</td></tr>
 <tr class="separator:a20e35392deb6712a6ad720791208056d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295cc39368126ea246072f82f770da99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a295cc39368126ea246072f82f770da99">MusicIndexer::remove_track</a> (SQLite::Database &amp;db, const int track_id)</td></tr>
+<tr class="separator:a295cc39368126ea246072f82f770da99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abebd40c338356cf67fdf578c244fa3d0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#abebd40c338356cf67fdf578c244fa3d0">MusicIndexer::get_ids_of_tracks_of_music_dir</a> (SQLite::Database &amp;db, const int mdir_id)</td></tr>
+<tr class="separator:abebd40c338356cf67fdf578c244fa3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e5dab4819222de9a6ba2912f947f846"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a9e5dab4819222de9a6ba2912f947f846">MusicIndexer::remove_music_dir</a> (SQLite::Database &amp;db, const std::string &amp;path)</td></tr>
 <tr class="separator:a9e5dab4819222de9a6ba2912f947f846"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a2fec5c08d62dd4d0d2543531852028"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a9a2fec5c08d62dd4d0d2543531852028">MusicIndexer::scan_directory</a> (SQLite::Database &amp;db, const std::string &amp;path)</td></tr>
@@ -148,7 +154,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a72f53454b83d1d1ca0b4a423abcd10ee"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a72f53454b83d1d1ca0b4a423abcd10ee">MusicIndexer::data_dir</a> = &quot;.local/share/musix-indexer&quot;</td></tr>
+<tr class="memitem:a72f53454b83d1d1ca0b4a423abcd10ee"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceMusicIndexer.html#a72f53454b83d1d1ca0b4a423abcd10ee">MusicIndexer::data_dir</a> = std::string(getenv(&quot;HOME&quot;)) + &quot;/.local/share/music-indexer&quot;</td></tr>
 <tr class="separator:a72f53454b83d1d1ca0b4a423abcd10ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
