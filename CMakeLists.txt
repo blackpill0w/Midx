@@ -15,6 +15,8 @@ string(CONCAT CMAKE_CXX_FLAGS
 
 option(BUILD_WITH_NIX "Whether to build with nix" ON)
 
+option(BUILD_TESTS "Whether to build tests" FALSE)
+
 # SqliteCpp
 find_package(SQLiteCpp)
 if ((NOT SQLiteCpp_FOUND) AND (NOT BUILD_WITH_NIX))
@@ -34,8 +36,10 @@ target_link_libraries(MusicIndexer
    tag
 )
 
-add_executable(test src/main.cpp)
-target_link_libraries(test MusicIndexer)
+if (BUILD_TESTS)
+   add_executable(test src/main.cpp)
+   target_link_libraries(test MusicIndexer)
+endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Copy root/build/compile_commands.json to root/
