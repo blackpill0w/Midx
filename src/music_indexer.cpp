@@ -175,8 +175,8 @@ std::vector<Track> get_all<Track>(SQLite::Database &db) {
 
   SQLite::Statement stmt{db, R"--(
     SELECT id, file_path, parent_dir_id, title, track_num, artist_id, album_id
-    FROM t_tracks
-    LEFT JOIN t_tracks_metadata ON t_tracks.id = t_track_metadata.id
+    FROM t_tracks t
+    LEFT JOIN t_tracks_metadata tm ON t.id = tm.track_id
   )--"};
   while (stmt.executeStep()) {
     const int id = stmt.getColumn(0);
