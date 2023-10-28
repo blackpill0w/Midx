@@ -172,12 +172,12 @@ std::vector<Album> get_all<Album>(SQLite::Database &db) {
 template<>
 std::vector<Track> get_all<Track>(SQLite::Database &db) {
   std::vector<Track> res{};
-
   SQLite::Statement stmt{db, R"--(
     SELECT id, file_path, parent_dir_id, title, track_num, artist_id, album_id
     FROM t_tracks t
     LEFT JOIN t_tracks_metadata tm ON t.id = tm.track_id
   )--"};
+
   while (stmt.executeStep()) {
     const int id = stmt.getColumn(0);
     const std::string file_path{stmt.getColumn(1).getString()};

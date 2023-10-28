@@ -33,7 +33,7 @@ void init_database(SQLite::Database &db);
  *  Get all music directories, artists, albums or tracks in the database.
  */
 template<typename T>
-std::vector<T> get_all(SQLite::Database &db) {
+std::vector<T> get_all([[maybe_unused]] SQLite::Database &db) {
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
                               std::is_convertible<T, Track>();
@@ -45,7 +45,7 @@ std::vector<T> get_all(SQLite::Database &db) {
   Get data related to an artist, album or track's metadata given its id.
 */
 template<typename T>
-std::optional<T> get(SQLite::Database &db, const int id) {
+std::optional<T> get([[maybe_unused]] SQLite::Database &db, [[maybe_unused]] const int id) {
   constexpr bool valid_type = std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
                               std::is_convertible<T, TrackMetadata>();
   static_assert(valid_type, "Invalid DataType to MusicIndexer::get()\n");
@@ -56,7 +56,7 @@ std::optional<T> get(SQLite::Database &db, const int id) {
  * Checks if the id of a music directory, artist, album or track is valid.
  */
 template<typename T>
-inline bool is_valid_id(SQLite::Database &db, const int id) {
+inline bool is_valid_id([[maybe_unused]] SQLite::Database &db, [[maybe_unused]] const int id) {
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
                               std::is_convertible<T, Track>();
@@ -72,7 +72,8 @@ inline bool is_valid_id(SQLite::Database &db, const int id) {
  * the relevant function
  */
 template<typename T>
-std::optional<int> get_id(SQLite::Database &db, const std::string &str,
+std::optional<int> get_id([[maybe_unused]] SQLite::Database &db,
+                          [[maybe_unused]] const std::string &str,
                           [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
@@ -87,7 +88,8 @@ std::optional<int> get_id(SQLite::Database &db, const std::string &str,
  * the relevant function instance's documentation
  */
 template<typename T>
-std::optional<int> insert(SQLite::Database &db, const std::string &str,
+std::optional<int> insert([[maybe_unused]] SQLite::Database &db,
+                          [[maybe_unused]] const std::string &str,
                           [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
   constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
                               std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
