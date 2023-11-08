@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['init_5fdatabase_0',['init_database',['../namespaceMusicIndexer.html#a92dcb2424edccaf72c64a83b0bd040d0',1,'MusicIndexer']]],
-  ['insert_1',['insert',['../namespaceMusicIndexer.html#a20e35392deb6712a6ad720791208056d',1,'MusicIndexer']]],
-  ['insert_3c_20album_20_3e_2',['insert&lt; Album &gt;',['../namespaceMusicIndexer.html#aea901f1f974cb6d20ce3b49553816ffa',1,'MusicIndexer']]],
-  ['insert_3c_20artist_20_3e_3',['insert&lt; Artist &gt;',['../namespaceMusicIndexer.html#a9400df822cf136e8cb818b0c45995509',1,'MusicIndexer']]],
-  ['insert_3c_20musicdir_20_3e_4',['insert&lt; MusicDir &gt;',['../namespaceMusicIndexer.html#aeccbff8847452c679e67090e4c664f4c',1,'MusicIndexer']]],
-  ['insert_3c_20track_20_3e_5',['insert&lt; Track &gt;',['../namespaceMusicIndexer.html#ad26e0e9b05f5f90eebd9bd40a8dbbf96',1,'MusicIndexer']]],
-  ['insert_5fmetadata_6',['insert_metadata',['../namespaceMusicIndexer_1_1Utils.html#afe0c43200a4a3641ca5df3902f933482',1,'MusicIndexer::Utils']]],
-  ['is_5fsupported_5ffile_5ftype_7',['is_supported_file_type',['../namespaceMusicIndexer_1_1Utils.html#aacace404e3f968ba267de666d8d4c06e',1,'MusicIndexer::Utils']]],
-  ['is_5fvalid_5fid_8',['is_valid_id',['../namespaceMusicIndexer.html#a5d94c2e99065911c688fad2ad396480a',1,'MusicIndexer']]],
-  ['is_5fvalid_5fid_3c_20album_20_3e_9',['is_valid_id&lt; Album &gt;',['../namespaceMusicIndexer.html#ab68d71296fae16e1931bab8803497670',1,'MusicIndexer']]],
-  ['is_5fvalid_5fid_3c_20artist_20_3e_10',['is_valid_id&lt; Artist &gt;',['../namespaceMusicIndexer.html#ae32943daa79c2f7b79f011f81ff4f2f1',1,'MusicIndexer']]],
-  ['is_5fvalid_5fid_3c_20musicdir_20_3e_11',['is_valid_id&lt; MusicDir &gt;',['../namespaceMusicIndexer.html#a84f6491b752a718904bd5790f745fe43',1,'MusicIndexer']]],
-  ['is_5fvalid_5fid_3c_20track_20_3e_12',['is_valid_id&lt; Track &gt;',['../namespaceMusicIndexer.html#ac18e1f51ae43305e4819ffedb6c6509a',1,'MusicIndexer']]]
+  ['init_5fdatabase_0',['init_database',['../namespaceMidx.html#ad949ee6a1687e0e05b9864e83d8e9eb5',1,'Midx']]],
+  ['insert_1',['insert',['../namespaceMidx.html#a6b80a15bdbf0fdbd0f872ee88501d2cc',1,'Midx']]],
+  ['insert_3c_20album_20_3e_2',['insert&lt; Album &gt;',['../namespaceMidx.html#a765decfd9dedcb976fe48d0c7241eb7d',1,'Midx']]],
+  ['insert_3c_20artist_20_3e_3',['insert&lt; Artist &gt;',['../namespaceMidx.html#a8f2345e1143666179704bbda4a51e7f1',1,'Midx']]],
+  ['insert_3c_20musicdir_20_3e_4',['insert&lt; MusicDir &gt;',['../namespaceMidx.html#a81822ff658a4f71f61190f869e81eebb',1,'Midx']]],
+  ['insert_3c_20track_20_3e_5',['insert&lt; Track &gt;',['../namespaceMidx.html#a2494bea52103cf1131362c338561bcc0',1,'Midx']]],
+  ['insert_5fmetadata_6',['insert_metadata',['../namespaceMidx_1_1Utils.html#aca35b808165a8700a56515a828fbfc54',1,'Midx::Utils']]],
+  ['is_5fsupported_5ffile_5ftype_7',['is_supported_file_type',['../namespaceMidx_1_1Utils.html#a33960f9eeea6842ff6ba858c58f39911',1,'Midx::Utils']]],
+  ['is_5fvalid_5fid_8',['is_valid_id',['../namespaceMidx.html#a3a74dd2557fb0ae5a682a920e2ae4bf9',1,'Midx']]],
+  ['is_5fvalid_5fid_3c_20album_20_3e_9',['is_valid_id&lt; Album &gt;',['../namespaceMidx.html#aa9dc9fa3099a96c5f28beabf201d488f',1,'Midx']]],
+  ['is_5fvalid_5fid_3c_20artist_20_3e_10',['is_valid_id&lt; Artist &gt;',['../namespaceMidx.html#acedde073ad62e8b909900fcefbde39bc',1,'Midx']]],
+  ['is_5fvalid_5fid_3c_20musicdir_20_3e_11',['is_valid_id&lt; MusicDir &gt;',['../namespaceMidx.html#a083524b89e86bc77fa18b24f7048cc02',1,'Midx']]],
+  ['is_5fvalid_5fid_3c_20track_20_3e_12',['is_valid_id&lt; Track &gt;',['../namespaceMidx.html#a2091171bea33a6c9038c10138d10925a',1,'Midx']]]
 ];

@@ -4,7 +4,7 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace MusicIndexer {
+namespace Midx {
 
 class MusicDir {
  public:
@@ -96,4 +96,4 @@ class Track {
   std::optional<TrackMetadata> m_metadata = std::nullopt;
 };
 
-}  // namespace MusicIndexer
+}  // namespace Midx

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['load_5fmetadata_0',['load_metadata',['../namespaceMusicIndexer_1_1Utils.html#a8da1c01bd3f260fd06baa1e00ae93ccd',1,'MusicIndexer::Utils']]]
+  ['load_5fmetadata_0',['load_metadata',['../namespaceMidx_1_1Utils.html#aeca97d8a7fca811b220b545bff94e49e',1,'Midx::Utils']]]
 ];

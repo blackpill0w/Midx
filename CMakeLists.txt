@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(MusicIndexer CXX)
+project(Midx CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,32 +13,30 @@ string(CONCAT CMAKE_CXX_FLAGS
              " -Wnull-dereference -Wuseless-cast"
              " -Wformat=2")
 
-option(BUILD_WITH_NIX "Whether to build with nix" ON)
-
-option(BUILD_TESTS "Whether to build tests" FALSE)
+option(MIDX_BUILD_TESTS "Whether to build tests" FALSE)
 
 # SqliteCpp
-find_package(SQLiteCpp)
-if ((NOT SQLiteCpp_FOUND) AND (NOT BUILD_WITH_NIX))
-  add_subdirectory(dependencies/SQLiteCpp)
-endif()
+add_subdirectory(deps/SQLiteCpp)
 
 # TagLib
-find_package(taglib)
-if ((NOT taglib_FOUND) AND (NOT BUILD_WITH_NIX))
-  add_subdirectory(dependencies/taglib-1.13)
-endif()
+add_subdirectory(deps/taglib-1.13)
 
-add_library(MusicIndexer STATIC src/music_indexer.cpp)
-include_directories(include)
-target_link_libraries(MusicIndexer
+# pybind11
+include_directories(deps/pybind11/include)
+
+# spdlog
+include_directories(deps/spdlog/include)
+
+add_library(Midx STATIC src/midx.cpp)
+
+target_link_libraries(Midx
    SQLiteCpp
    tag
 )
 
-if (BUILD_TESTS)
+if (MIDX_BUILD_TESTS)
    add_executable(test src/main.cpp)
-   target_link_libraries(test MusicIndexer)
+   target_link_libraries(test Midx)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

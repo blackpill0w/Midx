@@ -1,8 +1,8 @@
 var utils_8hpp =
 [
-    [ "MusicIndexer::MusicDir", "classMusicIndexer_1_1MusicDir.html", "classMusicIndexer_1_1MusicDir" ],
-    [ "MusicIndexer::Artist", "classMusicIndexer_1_1Artist.html", "classMusicIndexer_1_1Artist" ],
-    [ "MusicIndexer::Album", "classMusicIndexer_1_1Album.html", "classMusicIndexer_1_1Album" ],
-    [ "MusicIndexer::TrackMetadata", "classMusicIndexer_1_1TrackMetadata.html", "classMusicIndexer_1_1TrackMetadata" ],
-    [ "MusicIndexer::Track", "classMusicIndexer_1_1Track.html", "classMusicIndexer_1_1Track" ]
+    [ "Midx::MusicDir", "classMidx_1_1MusicDir.html", "classMidx_1_1MusicDir" ],
+    [ "Midx::Artist", "classMidx_1_1Artist.html", "classMidx_1_1Artist" ],
+    [ "Midx::Album", "classMidx_1_1Album.html", "classMidx_1_1Album" ],
+    [ "Midx::TrackMetadata", "classMidx_1_1TrackMetadata.html", "classMidx_1_1TrackMetadata" ],
+    [ "Midx::Track", "classMidx_1_1Track.html", "classMidx_1_1Track" ]
 ];

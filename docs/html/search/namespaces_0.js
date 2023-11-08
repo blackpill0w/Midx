@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['musicindexer_0',['MusicIndexer',['../namespaceMusicIndexer.html',1,'']]],
-  ['utils_1',['Utils',['../namespaceMusicIndexer_1_1Utils.html',1,'MusicIndexer']]]
+  ['midx_0',['Midx',['../namespaceMidx.html',1,'']]],
+  ['midx_3a_3autils_1',['Utils',['../namespaceMidx_1_1Utils.html',1,'Midx']]]
 ];

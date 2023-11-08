@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../classMusicIndexer_1_1Artist.html#a13ef14f1b92ca33e41258fb35f10e9ba',1,'MusicIndexer::Artist::name()'],['../classMusicIndexer_1_1Album.html#ac98d8900953103ca94dcfdd012111ac8',1,'MusicIndexer::Album::name()']]]
+  ['name_0',['name',['../classMidx_1_1Artist.html#a7864b3cfee9cfbc227c1bcdb6c7a688a',1,'Midx::Artist::name'],['../classMidx_1_1Album.html#a06d96cae0790f9587ee26dc8168679a8',1,'Midx::Album::name']]]
 ];

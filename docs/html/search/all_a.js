@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['remove_5fmusic_5fdir_0',['remove_music_dir',['../namespaceMusicIndexer.html#a9e5dab4819222de9a6ba2912f947f846',1,'MusicIndexer']]],
-  ['remove_5ftrack_1',['remove_track',['../namespaceMusicIndexer.html#a295cc39368126ea246072f82f770da99',1,'MusicIndexer']]]
+  ['remove_5fmusic_5fdir_0',['remove_music_dir',['../namespaceMidx.html#a264e0151be9807a04b1b3c5cb1986402',1,'Midx']]],
+  ['remove_5ftrack_1',['remove_track',['../namespaceMidx.html#af316ddfcafce4fc710a32fef8d40c30a',1,'Midx']]]
 ];

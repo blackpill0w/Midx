@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['album_0',['Album',['../classMusicIndexer_1_1Album.html',1,'MusicIndexer']]],
-  ['artist_1',['Artist',['../classMusicIndexer_1_1Artist.html',1,'MusicIndexer']]]
+  ['album_0',['Album',['../classMidx_1_1Album.html',1,'Midx']]],
+  ['artist_1',['Artist',['../classMidx_1_1Artist.html',1,'Midx']]]
 ];

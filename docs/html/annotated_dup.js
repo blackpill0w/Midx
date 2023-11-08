@@ -1,10 +1,10 @@
 var annotated_dup =
 [
-    [ "MusicIndexer", "namespaceMusicIndexer.html", [
-      [ "Album", "classMusicIndexer_1_1Album.html", "classMusicIndexer_1_1Album" ],
-      [ "Artist", "classMusicIndexer_1_1Artist.html", "classMusicIndexer_1_1Artist" ],
-      [ "MusicDir", "classMusicIndexer_1_1MusicDir.html", "classMusicIndexer_1_1MusicDir" ],
-      [ "Track", "classMusicIndexer_1_1Track.html", "classMusicIndexer_1_1Track" ],
-      [ "TrackMetadata", "classMusicIndexer_1_1TrackMetadata.html", "classMusicIndexer_1_1TrackMetadata" ]
+    [ "Midx", "namespaceMidx.html", [
+      [ "Album", "classMidx_1_1Album.html", "classMidx_1_1Album" ],
+      [ "Artist", "classMidx_1_1Artist.html", "classMidx_1_1Artist" ],
+      [ "MusicDir", "classMidx_1_1MusicDir.html", "classMidx_1_1MusicDir" ],
+      [ "Track", "classMidx_1_1Track.html", "classMidx_1_1Track" ],
+      [ "TrackMetadata", "classMidx_1_1TrackMetadata.html", "classMidx_1_1TrackMetadata" ]
     ] ]
 ];

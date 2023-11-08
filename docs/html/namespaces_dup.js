@@ -1,4 +1,4 @@
 var namespaces_dup =
 [
-    [ "MusicIndexer", "namespaceMusicIndexer.html", "namespaceMusicIndexer" ]
+    [ "Midx", "namespaceMidx.html", "namespaceMidx" ]
 ];

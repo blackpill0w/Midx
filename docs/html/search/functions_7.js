@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['scan_5fdirectory_0',['scan_directory',['../namespaceMusicIndexer.html#a9a2fec5c08d62dd4d0d2543531852028',1,'MusicIndexer']]]
+  ['remove_5fmusic_5fdir_0',['remove_music_dir',['../namespaceMidx.html#a264e0151be9807a04b1b3c5cb1986402',1,'Midx']]],
+  ['remove_5ftrack_1',['remove_track',['../namespaceMidx.html#af316ddfcafce4fc710a32fef8d40c30a',1,'Midx']]]
 ];

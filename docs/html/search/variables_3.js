@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['id_0',['id',['../classMusicIndexer_1_1MusicDir.html#a90c07d90dfac79617f98284c30e9456a',1,'MusicIndexer::MusicDir::id()'],['../classMusicIndexer_1_1Artist.html#a9e85f0191b562671f71c6046332243f1',1,'MusicIndexer::Artist::id()'],['../classMusicIndexer_1_1Album.html#a01df8ed28ba6989bac5264396d4a1c8f',1,'MusicIndexer::Album::id()'],['../classMusicIndexer_1_1Track.html#a3c26c080eb000de84359d13ecf45bd51',1,'MusicIndexer::Track::id()']]]
+  ['id_0',['id',['../classMidx_1_1MusicDir.html#a4518050b3b9daf429a70056e10f4e62e',1,'Midx::MusicDir::id'],['../classMidx_1_1Artist.html#a0aaa5591fafc767e182d9c24f05e9581',1,'Midx::Artist::id'],['../classMidx_1_1Album.html#a07e0e380936eafb0c8e8b4b158e6702c',1,'Midx::Album::id'],['../classMidx_1_1Track.html#ac72d653f9212cb43295ded89d193378e',1,'Midx::Track::id']]]
 ];

@@ -1,22 +1,25 @@
-#include <iostream>
-#include <filesystem>
 #include <SQLiteCpp/SQLiteCpp.h>
+#include <filesystem>
+#include <format>
+#include <spdlog/spdlog.h>
 
-#include "./music_indexer.hpp"
+#include "./midx.hpp"
 
-using namespace MusicIndexer;
-namespace fs = std::filesystem;
+using namespace Midx;
 
 int main() {
-  SQLite::Database db{"db.sqlite", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
+  Midx::data_dir = "./midx-test";
+  std::filesystem::create_directory(Midx::data_dir);
 
-  MusicIndexer::init_database(db);
+  SQLite::Database db{std::format("{}/db.sqlite", Midx::data_dir),
+                      SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE};
 
-  insert<MusicDir>(db, "/home/blackpill0w/Music/Aphex Twin/Drukqs [2001]");
+  Midx::init_database(db);
 
-  MusicIndexer::build_music_library(db);
-
-  for (auto &t : MusicIndexer::get_all<Track>(db)) {
-    std::cout << t.file_path << "\n";
+  auto mdir_id = insert<MusicDir>(db, "/home/blackpill0w/Music/Aphex Twin/Drukqs [2001]");
+  if (! mdir_id.has_value()) {
+    spdlog::error("ERROR: Failed to insert directory.");
   }
+
+  Midx::build_music_library(db);
 }
