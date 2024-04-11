@@ -9,3 +9,4 @@ build*
 *a.out
 *vgcore.*
 music_for_testingcompile_commands.json
+docs/html
