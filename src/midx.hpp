@@ -1,7 +1,6 @@
 #pragma once
 
 #include <optional>
-#include <string>
 #include <vector>
 #include <cstdlib>
 
@@ -24,7 +23,7 @@ namespace Midx {
 
   Album art is stored in the file `Midx::data_dir/id_of_corresponding_album`.
 */
-inline std::string data_dir = std::string(getenv("HOME")) + "/.local/share/music-indexer";
+inline std::string data_dir;
 
 /**
  * Initialise database and tables, this function also enables foreign keys check so it is
@@ -32,73 +31,33 @@ inline std::string data_dir = std::string(getenv("HOME")) + "/.local/share/music
  */
 void init_database(SQLite::Database &db);
 
-/**
- *  Get all music directories, artists, albums or tracks in the database.
- */
-template<typename T>
-std::vector<T> get_all([[maybe_unused]] SQLite::Database &db) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
-                              std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, Track>();
-  static_assert(valid_type, "Invalid DataType to Midx::get_all()\n");
-  return {};
-}
+std::vector<MusicDir> get_all_music_dirs(SQLite::Database &db);
+std::vector<Artist> get_all_artists(SQLite::Database &db);
+std::vector<Album> get_all_albums(SQLite::Database &db);
+std::vector<Track> get_all_tracks(SQLite::Database &db);
 
-/**
-  Get data related to an artist, album or track's metadata given its id.
-*/
-template<typename T>
-std::optional<T> get([[maybe_unused]] SQLite::Database &db, [[maybe_unused]] const int id) {
-  constexpr bool valid_type = std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, TrackMetadata>();
-  static_assert(valid_type, "Invalid DataType to Midx::get()\n");
-  return {};
-}
+std::optional<Artist> get_artist(SQLite::Database &db, const int id);
+std::optional<Album> get_album(SQLite::Database &db, const int id);
+std::optional<Track> get_track(SQLite::Database &db, const int id);
+std::optional<TrackMetadata> get_track_metadata(SQLite::Database &db, const int id);
 
-/**
- * Checks if the id of a music directory, artist, album or track is valid.
- */
-template<typename T>
-inline bool is_valid_id([[maybe_unused]] SQLite::Database &db, [[maybe_unused]] const int id) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
-                              std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, Track>();
-  static_assert(valid_type, "------------ ERROR: Invalid DataType to Midx::is_valid_id()\n");
-  return false;
-}
+bool is_valid_music_dir_id(SQLite::Database &db, const int id);
+bool is_valid_artist_id(SQLite::Database &db, const int id);
+bool is_valid_album_id(SQLite::Database &db, const int id);
+bool is_valid_track_id(SQLite::Database &db, const int id);
 
-/**
- * Get the id of a music directory, artist, album or track in the database, std::nullopt
- * is return if it doesn't exist.
- * @note The interpretation of the paramaters depends on the function's instance, refer to
- * the relevant function
- */
-template<typename T>
-std::optional<int> get_id([[maybe_unused]] SQLite::Database &db,
-                          [[maybe_unused]] const std::string &str,
-                          [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
-                              std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, Track>();
-  static_assert(valid_type, "------------ ERROR: Invalid DataType to Midx::get_id()\n");
-  return std::nullopt;
-}
+std::optional<int> get_music_dir_id(SQLite::Database &db, const std::string &path);
+std::optional<int> get_artist_id(SQLite::Database &db, const std::string &name);
+std::optional<int> get_album_id(SQLite::Database &db, const std::string &name,
+                                const std::optional<int> artist_id);
+std::optional<int> get_track_id(SQLite::Database &db, const std::string &file_path);
 
-/**
- * Insert a music directory, an artist, an album or a track in the database
- * @note The interpretation of the paramaters depends on the function's instance, refer to
- * the relevant function instance's documentation
- */
-template<typename T>
-std::optional<int> insert([[maybe_unused]] SQLite::Database &db,
-                          [[maybe_unused]] const std::string &str,
-                          [[maybe_unused]] const std::optional<int> dummy = std::nullopt) {
-  constexpr bool valid_type = std::is_convertible<T, MusicDir>() or
-                              std::is_convertible<T, Artist>() or std::is_convertible<T, Album>() or
-                              std::is_convertible<T, Track>();
-  static_assert(valid_type, "------------ ERROR: Invalid data type to Midx::insert()\n");
-  return std::nullopt;
-}
+std::optional<int> insert_music_dir(SQLite::Database &db, const std::string &path);
+std::optional<int> insert_artist(SQLite::Database &db, const std::string &name);
+std::optional<int> insert_album(SQLite::Database &db, const std::string &name,
+                                const std::optional<int> artist_id);
+std::optional<int> insert_track(SQLite::Database &db, const std::string &file_path,
+                                const std::optional<int> parent_dir_id);
 
 /**
   Delete a track (and its metadata) from the database.

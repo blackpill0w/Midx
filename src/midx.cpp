@@ -3,7 +3,6 @@
 #include <array>
 #include <filesystem>
 #include <fstream>
-#include <ranges>
 #include <vector>
 
 #include <spdlog/spdlog.h>
@@ -32,8 +31,9 @@ static bool is_supported_file_type(const std::string &path);
 /**
  * Get metadata from a file.
  */
-static std::optional<TrackMetadata> load_metadata(SQLite::Database &db, const int track_id,
-                                                  const std::string &file_path);
+static std::optional<TrackMetadata> load_metadata(
+    SQLite::Database &db, const int track_id, const std::string &file_path
+);
 
 /**
  * Extract album art from FLAC file.
@@ -118,8 +118,7 @@ void init_database(SQLite::Database &db) {
 /**
  * Get all the music directories.
  */
-template<>
-std::vector<MusicDir> get_all<MusicDir>(SQLite::Database &db) {
+std::vector<MusicDir> get_all_music_dirs(SQLite::Database &db) {
   std::vector<MusicDir> res{};
   SQLite::Statement stmt{db, "SELECT id, path FROM t_music_dirs"};
   while (stmt.executeStep()) {
@@ -133,8 +132,7 @@ std::vector<MusicDir> get_all<MusicDir>(SQLite::Database &db) {
 /**
  * Get all the artists.
  */
-template<>
-std::vector<Artist> get_all<Artist>(SQLite::Database &db) {
+std::vector<Artist> get_all_artists(SQLite::Database &db) {
   std::vector<Artist> res{};
   SQLite::Statement stmt{db, "SELECT id, name FROM t_artists"};
   while (stmt.executeStep()) {
@@ -148,8 +146,7 @@ std::vector<Artist> get_all<Artist>(SQLite::Database &db) {
 /**
  * Get all the albums.
  */
-template<>
-std::vector<Album> get_all<Album>(SQLite::Database &db) {
+std::vector<Album> get_all_albums(SQLite::Database &db) {
   std::vector<Album> res{};
   SQLite::Statement stmt{db, "SELECT id, name, artist_id FROM t_albums"};
   while (stmt.executeStep()) {
@@ -165,8 +162,7 @@ std::vector<Album> get_all<Album>(SQLite::Database &db) {
 /**
  * Get all the tracks and their metadata if it exists.
  */
-template<>
-std::vector<Track> get_all<Track>(SQLite::Database &db) {
+std::vector<Track> get_all_tracks(SQLite::Database &db) {
   std::vector<Track> res{};
 
   SQLite::Statement stmt{db, R"--(
@@ -193,8 +189,7 @@ std::vector<Track> get_all<Track>(SQLite::Database &db) {
   return res;
 }
 
-template<>
-std::optional<Artist> get(SQLite::Database &db, const int id) {
+std::optional<Artist> get_artist(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT id, name FROM t_artists WHERE id = ?"};
   stmt.bind(1, id);
   if (not stmt.executeStep()) {
@@ -203,8 +198,7 @@ std::optional<Artist> get(SQLite::Database &db, const int id) {
   return Artist{stmt.getColumn(0).getInt(), stmt.getColumn(1).getString()};
 }
 
-template<>
-std::optional<Album> get(SQLite::Database &db, const int id) {
+std::optional<Album> get_album(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT id, name, artist_id FROM t_albums WHERE id = ?"};
   stmt.bind(1, id);
   if (not stmt.executeStep()) {
@@ -212,14 +206,15 @@ std::optional<Album> get(SQLite::Database &db, const int id) {
   }
   return Album{
       stmt.getColumn(1).getString(), stmt.getColumn(0).getInt(),
-      stmt.isColumnNull(2) ? std::nullopt : std::optional<int>{stmt.getColumn(2).getInt()}};
+      stmt.isColumnNull(2) ? std::nullopt : std::optional<int>{stmt.getColumn(2).getInt()}
+  };
 }
 
-template<>
-std::optional<TrackMetadata> get(SQLite::Database &db, const int id) {
+std::optional<TrackMetadata> get_track_metadata(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{
       db,
-      "SELECT track_id, title, track_num, artist_id, album_id FROM t_tracks_metadata WHERE id = ?"};
+      "SELECT track_id, title, track_num, artist_id, album_id FROM t_tracks_metadata WHERE id = ?"
+  };
   stmt.bind(1, id);
   if (not stmt.executeStep()) {
     return std::nullopt;
@@ -228,154 +223,112 @@ std::optional<TrackMetadata> get(SQLite::Database &db, const int id) {
       stmt.getColumn(0).getInt(), stmt.getColumn(1).getString(),
       stmt.isColumnNull(2) ? std::nullopt : std::optional<int>{stmt.getColumn(2).getInt()},
       stmt.isColumnNull(3) ? std::nullopt : std::optional<int>{stmt.getColumn(3).getInt()},
-      stmt.isColumnNull(4) ? std::nullopt : std::optional<int>{stmt.getColumn(4).getInt()}};
+      stmt.isColumnNull(4) ? std::nullopt : std::optional<int>{stmt.getColumn(4).getInt()}
+  };
 }
 
-template<>
-bool is_valid_id<MusicDir>(SQLite::Database &db, const int id) {
+bool is_valid_music_dir_id(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_music_dirs WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
   return stmt.getColumn(0).getInt() == 1;
 }
 
-template<>
-bool is_valid_id<Artist>(SQLite::Database &db, const int id) {
+bool is_valid_artist_id(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_artists WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
   return stmt.getColumn(0).getInt() == 1;
 }
 
-template<>
-bool is_valid_id<Album>(SQLite::Database &db, const int id) {
+bool is_valid_album_id(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_albums WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
   return stmt.getColumn(0).getInt() == 1;
 }
 
-template<>
-bool is_valid_id<Track>(SQLite::Database &db, const int id) {
+bool is_valid_track_id(SQLite::Database &db, const int id) {
   SQLite::Statement stmt{db, "SELECT EXISTS(SELECT 1 FROM t_tracks WHERE id = ?)"};
   stmt.bind(1, id);
   stmt.executeStep();
   return stmt.getColumn(0).getInt() == 1;
 }
 
-/**
- * @param path absolute or relative path to the directory
- */
-template<>
-std::optional<int> get_id<MusicDir>(SQLite::Database &db, const std::string &path,
-                                    [[maybe_unused]] const std::optional<int> dummy) {
+std::optional<int> get_music_dir_id(SQLite::Database &db, const std::string &path) {
   SQLite::Statement stmt{db, "SELECT id FROM t_music_dirs WHERE path = ?"};
   stmt.bindNoCopy(1, path);
   stmt.executeStep();
   return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0)} : std::nullopt;
 }
 
-/**
- * @param name name of the artist
- */
-template<>
-std::optional<int> get_id<Artist>(SQLite::Database &db, const std::string &name,
-                                  [[maybe_unused]] const std::optional<int> dummy) {
+std::optional<int> get_artist_id(SQLite::Database &db, const std::string &name) {
   SQLite::Statement stmt{db, "SELECT id FROM t_artists WHERE name = ?"};
   stmt.bindNoCopy(1, name);
   stmt.executeStep();
   return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0)} : std::nullopt;
 }
 
-/**
- * @param name the name of the album
- * @param artist_id the id of the albums's artist if it exists
- */
-template<>
-std::optional<int> get_id<Album>(SQLite::Database &db, const std::string &name,
-                                 const std::optional<int> artist_id) {
+std::optional<int> get_album_id(
+    SQLite::Database &db, const std::string &name, const std::optional<int> artist_id
+) {
   SQLite::Statement stmt{db, "SELECT id FROM t_albums WHERE name = ? AND artist_id = ?"};
   stmt.bindNoCopy(1, name);
   if (artist_id.has_value()) {
     stmt.bind(2, artist_id.value());
-  }
-  else
+  } else
     stmt.bind(2);
   stmt.executeStep();
   return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0).getInt()} : std::nullopt;
 }
 
-/**
- * @param file_path path to the track's file
- */
-template<>
-std::optional<int> get_id<Track>(SQLite::Database &db, const std::string &file_path,
-                                 [[maybe_unused]] const std::optional<int> dummy) {
+std::optional<int> get_track_id(SQLite::Database &db, const std::string &file_path) {
   SQLite::Statement stmt{db, "SELECT id FROM t_tracks WHERE file_path = ?"};
   stmt.bindNoCopy(1, file_path);
   stmt.executeStep();
   return stmt.hasRow() ? std::optional<int>{stmt.getColumn(0)} : std::nullopt;
 }
 
-/**
- * Adds a directory to the database. If it already exists in the database,
- * nothing happens.
- *
- * @param path absolute or relative path to the directory.
- *
- * @return the id of the inserted item if everthing goes correctly, otherwise
- * std::nullopt.
- */
-template<>
-std::optional<int> insert<MusicDir>(SQLite::Database &db, const std::string &path,
-                                    [[maybe_unused]] const std::optional<int> dummy) {
+std::optional<int> insert_music_dir(SQLite::Database &db, const std::string &path) {
   if (not fs::exists(path) or not fs::is_directory(path)) {
     spdlog::error("Path doesn't exists or is not a directory: {}", path);
     return std::nullopt;
   }
   const std::string abs_path = fs::canonical(path);
+  const auto id = get_music_dir_id(db, abs_path);
+  if (id.has_value()) {
+    return id;
+  }
   SQLite::Statement stmt{db, "INSERT OR IGNORE INTO t_music_dirs (id, path) VALUES (NULL, ?)"};
   stmt.bindNoCopy(1, abs_path);
   stmt.exec();
-  return get_id<MusicDir>(db, abs_path);
+  return get_music_dir_id(db, abs_path);
 }
 
-/**
- * Adds an artist to the database. If it already exists in the database,
- * nothing happens.
- *
- * @param name name of the artist.
- *
- * @return the id of the artist if everthing goes correctly,
- * otherwise std::nullopt.
- */
-template<>
-std::optional<int> insert<Artist>(SQLite::Database &db, const std::string &name,
-                                  [[maybe_unused]] const std::optional<int> dummy) {
+std::optional<int> insert_artist(SQLite::Database &db, const std::string &name) {
+  const auto id = get_artist_id(db, name);
+  if (id.has_value()) {
+    return id;
+  }
   SQLite::Statement stmt{db, "INSERT OR IGNORE INTO t_artists (id, name) VALUES (NULL, ?)"};
   stmt.bindNoCopy(1, name);
   stmt.exec();
-  return get_id<Artist>(db, name);
+  return get_artist_id(db, name);
 }
 
-/**
- * Adds an album to the database. If it already exists in the database,
- * nothing happens.
- *
- * @param name name of the album.
- * @param artist_id id of the album's artist, if std::nullopt is passed the artist
- * will be marked as unknown.
- *
- * @return the id of the album if everthing goes correctly,
- * otherwise std::nullopt.
- */
-template<>
-std::optional<int> insert<Album>(SQLite::Database &db, const std::string &name,
-                                 const std::optional<int> artist_id) {
-  if (artist_id.has_value() and not is_valid_id<Artist>(db, artist_id.value()))
+std::optional<int> insert_album(
+    SQLite::Database &db, const std::string &name, const std::optional<int> artist_id
+) {
+  if (artist_id.has_value() and not is_valid_artist_id(db, artist_id.value())) {
     return std::nullopt;
+  }
+  const auto id = get_album_id(db, name, artist_id);
+  if (id.has_value()) {
+    return id;
+  }
   SQLite::Statement stmt{
-      db, "INSERT OR IGNORE INTO t_albums (id, name, artist_id) VALUES (NULL, ?, ?)"};
+      db, "INSERT OR IGNORE INTO t_albums (id, name, artist_id) VALUES (NULL, ?, ?)"
+  };
   stmt.bindNoCopy(1, name);
   if (artist_id.has_value())
     stmt.bind(2, artist_id.value());
@@ -383,23 +336,13 @@ std::optional<int> insert<Album>(SQLite::Database &db, const std::string &name,
     stmt.bind(2);
   stmt.exec();
 
-  return get_id<Album>(db, name, artist_id);
+  return get_album_id(db, name, artist_id);
 }
 
-/**
- * Adds a track to the database. If it already exists, the metadata is updated if needed.
- *
- * @param file_path absolute or relative path to the track's file.
- *
- * @param parent_dir_id id of the parent directory, necessary.
- *
- * @return the id of the track inserted if everthing goes correctly,
- * otherwise std::nullopt.
- */
-template<>
-std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_path,
-                                 const std::optional<int> parent_dir_id) {
-  if (not parent_dir_id or not is_valid_id<MusicDir>(db, parent_dir_id.value())) {
+std::optional<int> insert_track(
+    SQLite::Database &db, const std::string &file_path, const std::optional<int> parent_dir_id
+) {
+  if (not parent_dir_id or not is_valid_music_dir_id(db, parent_dir_id.value())) {
     return std::nullopt;
   }
   const std::string abs_path = fs::canonical(file_path);
@@ -407,12 +350,17 @@ std::optional<int> insert<Track>(SQLite::Database &db, const std::string &file_p
     spdlog::error("Path doesn't exists or is not a directory: {}", abs_path);
     return std::nullopt;
   }
+  const auto id = get_track_id(db, abs_path);
+  if (id.has_value()) {
+    return id;
+  }
   SQLite::Statement stmt{
-      db, "INSERT OR IGNORE INTO t_tracks (id, file_path, parent_dir_id) VALUES (NULL, ?, ?)"};
+      db, "INSERT OR IGNORE INTO t_tracks (id, file_path, parent_dir_id) VALUES (NULL, ?, ?)"
+  };
   stmt.bindNoCopy(1, abs_path);
   stmt.bind(2, parent_dir_id.value());
   stmt.exec();
-  const std::optional<int> trk_id = get_id<Track>(db, abs_path);
+  const std::optional<int> trk_id = get_track_id(db, abs_path);
   // Metadata
   std::optional<TrackMetadata> tm = Utils::load_metadata(db, trk_id.value(), file_path);
   if (tm.has_value())
@@ -454,8 +402,8 @@ bool remove_music_dir(SQLite::Database &db, const std::string &path) {
     return false;
   }
   const std::string abs_path      = fs::canonical(path);
-  const std::optional<int> dir_id = get_id<MusicDir>(db, abs_path);
-  if (!dir_id.has_value()) {
+  const std::optional<int> dir_id = get_music_dir_id(db, abs_path);
+  if (! dir_id.has_value()) {
     spdlog::error("Trying to delete path that doesn't exists in the database: {}", path);
     return false;
   }
@@ -494,11 +442,11 @@ std::optional<int> scan_directory(SQLite::Database &db, const std::string &path)
     spdlog::error("Path doesn't exists or is not a directory: {}", path);
     return std::nullopt;
   }
-  const std::optional<int> id = insert<MusicDir>(db, abs_path);
+  const std::optional<int> id = insert_music_dir(db, abs_path);
   int i                       = 1;
   for (const auto &dir_entry : fs::recursive_directory_iterator(abs_path)) {
     if (dir_entry.is_regular_file() && Utils::is_supported_file_type(dir_entry.path())) {
-      insert<Track>(db, dir_entry.path(), id);
+      insert_track(db, dir_entry.path(), id);
       spdlog::info("{} - INSERTED: {}", i, dir_entry.path().c_str());
       ++i;
     }
@@ -507,7 +455,7 @@ std::optional<int> scan_directory(SQLite::Database &db, const std::string &path)
 }
 
 void build_music_library(SQLite::Database &db) {
-  const auto mdirs = get_all<MusicDir>(db);
+  const auto mdirs = get_all_music_dirs(db);
   for (const auto &mdir : mdirs)
     scan_directory(db, mdir.path);
 }
@@ -521,9 +469,10 @@ static bool Utils::is_supported_file_type(const std::string &path) {
   return std::ranges::any_of(exts, [&](const auto &ext) { return path.ends_with(ext); });
 }
 
-static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database &db, const int track_id,
-                                                         const std::string &file_path) {
-  if (not is_valid_id<Track>(db, track_id))
+static std::optional<TrackMetadata> Utils::load_metadata(
+    SQLite::Database &db, const int track_id, const std::string &file_path
+) {
+  if (not is_valid_track_id(db, track_id))
     return std::nullopt;
   TagLib::FileRef fref{file_path.c_str()};
   if (fref.isNull() or fref.tag()->isEmpty())
@@ -542,27 +491,26 @@ static std::optional<TrackMetadata> Utils::load_metadata(SQLite::Database &db, c
   std::optional<int> artist_id = std::nullopt;
   if (not fref.tag()->artist().isEmpty()) {
     const std::string artist = fref.tag()->artist().to8Bit(true);
-    artist_id                = insert<Artist>(db, artist);
+    artist_id                = insert_artist(db, artist);
   }
 
   std::optional<int> album_id = std::nullopt;
   if (not fref.tag()->album().isEmpty()) {
     const std::string album = fref.tag()->album().to8Bit(true);
-
-    album_id = insert<Album>(db, album, artist_id);
+    album_id                = insert_album(db, album, artist_id);
   }
-  // Extract album art
+  // Extract album art and store it in a file
   const std::string album_art_filename = std::format("{}/{}", data_dir, album_id.value());
+  spdlog::info("{}", album_art_filename);
   if (album_id.has_value() and not fs::exists(album_art_filename)) {
     std::optional<TagLib::ByteVector> pic = get_album_art(file_path);
     if (pic.has_value()) {
       std::ofstream album_art_file{album_art_filename};
-      for (auto b : pic.value()) {
+      for (const auto b : pic.value()) {
         album_art_file << b;
       }
     }
   }
-
   return TrackMetadata(track_id, title, trk_num, artist_id, album_id);
 }
 

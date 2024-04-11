@@ -3,9 +3,9 @@
 
 namespace py = pybind11;
 
-#include "./music_indexer.hpp"
+#include "./midx.hpp"
 
-PYBIND11_MODULE(music_indexer, handle) {
+PYBIND11_MODULE(midx, handle) {
   handle.doc() =
       "Library to index music files and their metadata, with the intention to be used as a backend "
       "for a music player.";
@@ -15,7 +15,7 @@ PYBIND11_MODULE(music_indexer, handle) {
   handle.attr("SQLite_OPEN_READONLY")  = &SQLite::OPEN_READONLY;
   handle.attr("SQLite_CREATE")         = &SQLite::OPEN_CREATE;
   // TODO: find some way to define docstring for global variable
-  handle.attr("DATA_DIR")              = &Midx::data_dir;
+  handle.attr("DATA_DIR") = &Midx::data_dir;
 
   py::class_<SQLite::Database>(handle, "SQLiteDB").def(py::init<char *, int>());
 
@@ -82,40 +82,32 @@ PYBIND11_MODULE(music_indexer, handle) {
 
   handle.def(
       "init_database", &Midx::init_database,
-      "Initialise database and tables, this function also enables foreign keys checks so it is "
+      "Initialise the database and tables, this function also enables foreign keys checks so it is "
       "preferred to call it before any operations are done.");
 
-  handle.def("get_all_music_dirs", &Midx::get_all<Midx::MusicDir>);
-  handle.def("get_all_artists", &Midx::get_all<Midx::Artist>);
-  handle.def("get_all_albums", &Midx::get_all<Midx::Album>);
-  handle.def("get_all_tracks", &Midx::get_all<Midx::Track>);
+  handle.def("get_all_music_dirs", &Midx::get_all_music_dirs);
+  handle.def("get_all_artists", &Midx::get_all_artists);
+  handle.def("get_all_albums", &Midx::get_all_albums);
+  handle.def("get_all_tracks", &Midx::get_all_tracks);
 
-  handle.def("get_artist", &Midx::get<Midx::Artist>);
-  handle.def("get_album", &Midx::get<Midx::Album>);
-  handle.def("get_track_metadata", &Midx::get<Midx::TrackMetadata>);
+  handle.def("get_artist", &Midx::get_artist);
+  handle.def("get_album", &Midx::get_album);
+  handle.def("get_track_metadata", &Midx::get_track_metadata);
 
-  handle.def("is_valid_music_dir_id", &Midx::is_valid_id<Midx::MusicDir>);
-  handle.def("is_valid_artist_id", &Midx::is_valid_id<Midx::Artist>);
-  handle.def("is_valid_album_id", &Midx::is_valid_id<Midx::Album>);
-  handle.def("is_valid_track_id", &Midx::is_valid_id<Midx::Track>);
+  handle.def("is_valid_music_dir_id", &Midx::is_valid_music_dir_id);
+  handle.def("is_valid_artist_id", &Midx::is_valid_artist_id);
+  handle.def("is_valid_album_id", &Midx::is_valid_album_id);
+  handle.def("is_valid_track_id", &Midx::is_valid_track_id);
 
-  handle.def("get_music_dir_id", &Midx::get_id<Midx::MusicDir>, py::arg("db"), py::arg("path"),
-             py::arg("dummy") = py::none());
-  handle.def("get_artist_id", &Midx::get_id<Midx::Artist>, py::arg("db"), py::arg("name"),
-             py::arg("dummy") = py::none());
-  handle.def("get_album_id", &Midx::get_id<Midx::Album>, py::arg("db"), py::arg("name"),
-             py::arg("artist_id") = py::none());
-  handle.def("get_track_id", &Midx::get_id<Midx::Track>, py::arg("db"), py::arg("file_path"),
-             py::arg("dummy") = py::none());
+  handle.def("get_music_dir_id", &Midx::get_music_dir_id);
+  handle.def("get_artist_id", &Midx::get_artist_id);
+  handle.def("get_album_id", &Midx::get_album_id);
+  handle.def("get_track_id", &Midx::get_track_id);
 
-  handle.def("insert_music_dir", &Midx::insert<Midx::MusicDir>, py::arg("db"), py::arg("path"),
-             py::arg("dummy") = py::none());
-  handle.def("insert_artist", &Midx::insert<Midx::Artist>, py::arg("db"), py::arg("name"),
-             py::arg("dummy") = py::none());
-  handle.def("insert_album", &Midx::insert<Midx::Album>, py::arg("db"), py::arg("name"),
-             py::arg("artist_id") = py::none());
-  handle.def("insert_track", &Midx::insert<Midx::Track>, py::arg("db"), py::arg("file_path"),
-             py::arg("dummy") = py::none());
+  handle.def("insert_music_dir", &Midx::insert_music_dir);
+  handle.def("insert_artist", &Midx::insert_artist);
+  handle.def("insert_album", &Midx::insert_album);
+  handle.def("insert_track", &Midx::insert_track);
 
   handle.def("get_ids_of_tracks_of_music_dir", &Midx::get_ids_of_tracks_of_music_dir,
              "Get ids of the tracks that are inside (and bound to) a certain music directory.");
