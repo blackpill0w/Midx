@@ -20,7 +20,7 @@ PYBIND11_MODULE(midx, handle) {
   py::class_<SQLite::Database>(handle, "SQLiteDB").def(py::init<char *, int>());
 
   py::class_<Midx::MusicDir>(handle, "MusicDir")
-      .def(py::init<const std::string &, const int>())
+      .def(py::init<const MDirId, const std::string &>())
       .def_readonly("path", &Midx::MusicDir::path)
       .def_readonly("id", &Midx::MusicDir::id)
       .def("__str__", [&](Midx::MusicDir &mdir) {
@@ -28,7 +28,7 @@ PYBIND11_MODULE(midx, handle) {
       });
 
   py::class_<Midx::Artist>(handle, "Artist")
-      .def(py::init<const int, const std::string &>())
+      .def(py::init<const ArtistId, const std::string &>())
       .def_readonly("id", &Midx::Artist::id)
       .def_readonly("name", &Midx::Artist::name)
       .def("__str__", [&](Midx::Artist &a) {
@@ -36,7 +36,7 @@ PYBIND11_MODULE(midx, handle) {
       });
 
   py::class_<Midx::Album>(handle, "Album")
-      .def(py::init<const std::string &, const int, const std::optional<int>>(), py::arg("name_"),
+      .def(py::init<const AlbumId, const std::string &, const std::optional<ArtistId>>(), py::arg("name_"),
            py::arg("id_"), py::arg("artist_id_") = py::none())
       .def_readonly("id", &Midx::Album::id)
       .def_readonly("name", &Midx::Album::name)
@@ -49,8 +49,8 @@ PYBIND11_MODULE(midx, handle) {
   py::class_<Midx::TrackMetadata>(
       handle, "TrackMetadata",
       "Represents a track's metadata, it's supposed to be a read only data structure.")
-      .def(py::init<const int, const std::string &, const std::optional<int>,
-                    const std::optional<int>, const std::optional<int>>(),
+      .def(py::init<const TrackId, const std::string &, const std::optional<size_t>,
+                    const std::optional<ArtistId>, const std::optional<AlbumId>>(),
            py::arg("track_id_"), py::arg("title_"), py::arg("track_number_") = py::none(),
            py::arg("artist_id_") = py::none(), py::arg("album_id_") = py::none())
       .def_readonly("track_id", &Midx::TrackMetadata::track_id)
@@ -67,7 +67,7 @@ PYBIND11_MODULE(midx, handle) {
       });
 
   py::class_<Midx::Track>(handle, "Track")
-      .def(py::init<const int, const std::string &, const int>(),
+      .def(py::init<const TrackId, const std::string &, const MDirId>(),
            "The constructor, it does not initialise the `metadata` field, call "
            "`Track::update_metadata()` for that.")
       .def("update_metadata", &Midx::Track::update_metadata)
